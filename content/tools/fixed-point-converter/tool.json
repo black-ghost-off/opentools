@@ -1,0 +1,9 @@
+{
+  "slug": "fixed-point-converter",
+  "title": "Fixed-Point (Q-format) Converter",
+  "summary": "Convert float \u2194 Qm.n fixed-point, with range, resolution, hex and binary raw value.",
+  "category": "Embedded",
+    "icon": "\ud83d\udd22",
+  "body": "body.html",
+  "scripts": ["assets/fixed-point-converter.js"]
+}

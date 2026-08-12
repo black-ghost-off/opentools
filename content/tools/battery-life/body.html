@@ -1,0 +1,66 @@
+<style>
+  .batt-top{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+  .states-table{width:100%;border-collapse:collapse;margin-top:.25rem}
+  .states-table th{font-size:.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;padding:.35rem .5rem;border-bottom:1.5px solid var(--border);text-align:left}
+  .states-table td{padding:.4rem .5rem;vertical-align:middle;border-bottom:1px solid var(--border)}
+  .states-table tr:last-child td{border-bottom:none}
+  .states-table input,.states-table select{width:100%;min-width:60px;background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:4px 7px;font-size:.85rem;color:var(--text)}
+  .states-table input:focus,.states-table select:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .state-name-col{min-width:90px}
+  .state-del-btn{background:none;border:1px solid var(--border);border-radius:5px;color:var(--text-muted);cursor:pointer;padding:3px 8px;font-size:.78rem;white-space:nowrap}
+  .state-del-btn:hover{background:var(--danger);color:#fff;border-color:var(--danger)}
+  .batt-add-row{margin-top:.5rem}
+  .batt-result-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:1rem}
+  .duty-warning{font-size:.75rem;color:var(--danger);margin-top:.25rem}
+</style>
+
+<section class="card">
+  <div class="batt-top">
+    <div class="field">
+      <label for="capacity">Battery capacity (mAh)</label>
+      <input id="capacity" type="text" inputmode="decimal" value="2000" autocomplete="off" />
+    </div>
+    <div class="field">
+      <label for="efficiency">Efficiency (%)</label>
+      <input id="efficiency" type="text" inputmode="decimal" value="85" autocomplete="off" />
+      <span class="hint">Converter losses, self-discharge, etc.</span>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem">
+    <span style="font-size:.85rem;font-weight:600;color:var(--text-muted)">Current states</span>
+    <span id="duty-total" class="duty-warning" hidden></span>
+  </div>
+
+  <div style="overflow-x:auto">
+    <table class="states-table">
+      <thead>
+        <tr>
+          <th class="state-name-col">State name</th>
+          <th>Current (mA)</th>
+          <th>Duty cycle (%)</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="states-body"></tbody>
+    </table>
+  </div>
+
+  <div class="batt-add-row">
+    <button class="btn secondary" type="button" id="addStateBtn" style="font-size:.82rem;padding:.35rem .9rem">+ Add state</button>
+  </div>
+
+  <div id="message" class="msg hidden" style="margin-top:.75rem"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Results</h2>
+    <div class="batt-result-bar">
+      <div class="stat"><div class="label">Battery life</div><div class="value" id="out-life">&ndash;</div></div>
+      <div class="stat"><div class="label">Avg. current</div><div class="value small" id="out-avg">&ndash;</div></div>
+      <div class="stat"><div class="label">Eff. capacity</div><div class="value small" id="out-eff">&ndash;</div></div>
+    </div>
+    <div class="code-block" style="margin-top:.75rem">
+      <pre><code id="out-breakdown"></code></pre>
+    </div>
+  </div>
+</section>

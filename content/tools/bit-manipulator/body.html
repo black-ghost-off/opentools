@@ -1,0 +1,63 @@
+<section class="card">
+  <div class="form-grid">
+    <div class="field">
+      <label for="value">Value (hex)</label>
+      <input id="value" type="text" inputmode="text" autocomplete="off" spellcheck="false" value="00FF" />
+      <span class="hint">Prefix <code>0x</code>/<code>0b</code> optional.</span>
+    </div>
+    <div class="field">
+      <label for="width">Bit width</label>
+      <select id="width">
+        <option value="8">8-bit</option>
+        <option value="16" selected>16-bit</option>
+        <option value="32">32-bit</option>
+        <option value="64">64-bit</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="bit-grid" class="bit-grid"></div>
+
+  <div class="actions">
+    <button class="btn secondary" type="button" data-op="not">NOT (~)</button>
+    <button class="btn secondary" type="button" data-op="lsh">&laquo; Shift left</button>
+    <button class="btn secondary" type="button" data-op="rsh">Shift right &raquo;</button>
+    <button class="btn secondary" type="button" data-op="rol">Rotate left</button>
+    <button class="btn secondary" type="button" data-op="ror">Rotate right</button>
+    <button class="btn secondary" type="button" data-op="rev">Reverse bits</button>
+    <button class="btn secondary" type="button" data-op="swap">Byte swap</button>
+    <button class="btn secondary" type="button" data-op="clear">Clear</button>
+    <button class="btn secondary" type="button" data-op="set">Set all</button>
+  </div>
+
+  <h2 class="section-label">Bitwise op with mask</h2>
+  <div class="form-grid">
+    <div class="field">
+      <label for="mask">Mask (hex)</label>
+      <input id="mask" type="text" autocomplete="off" spellcheck="false" value="0F0F" />
+    </div>
+    <div class="field">
+      <label>&nbsp;</label>
+      <div class="actions" style="margin-top:0">
+        <button class="btn secondary" type="button" data-mask="and">AND</button>
+        <button class="btn secondary" type="button" data-mask="or">OR</button>
+        <button class="btn secondary" type="button" data-mask="xor">XOR</button>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-label">Representations</h2>
+  <div class="result-summary">
+    <div class="stat"><div class="label">Hex</div><div class="value small" id="out-hex">&ndash;</div></div>
+    <div class="stat"><div class="label">Decimal (unsigned)</div><div class="value small" id="out-dec">&ndash;</div></div>
+    <div class="stat"><div class="label">Decimal (signed)</div><div class="value small" id="out-sdec">&ndash;</div></div>
+    <div class="stat"><div class="label">Bits set</div><div class="value small" id="out-pop">&ndash;</div></div>
+  </div>
+  <div class="code-block"><pre><code id="out-bin"></code></pre></div>
+</section>
+
+<section class="prose">
+  <h2>Notes</h2>
+  <p>Click any bit to toggle it. Shifts and rotations move by one position and
+  respect the selected width. Byte swap reverses byte order (endianness).</p>
+</section>

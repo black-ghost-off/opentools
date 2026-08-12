@@ -1,0 +1,56 @@
+<style>
+  .trace-layout{display:grid;grid-template-columns:1fr 220px;gap:20px;align-items:start;margin-top:.75rem}
+  @media(max-width:540px){.trace-layout{grid-template-columns:1fr}}
+  .trace-svg-wrap{display:flex;justify-content:center;align-items:flex-end}
+  .trace-result-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:1rem}
+  @media(max-width:480px){.trace-result-bar{grid-template-columns:1fr 1fr}}
+</style>
+
+<section class="card">
+  <div class="trace-layout">
+    <div>
+      <div class="form-grid">
+        <div class="field">
+          <label for="current">Current I (A)</label>
+          <input id="current" type="text" inputmode="decimal" value="1" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="temp-rise">Temp rise &Delta;T (&deg;C)</label>
+          <input id="temp-rise" type="text" inputmode="decimal" value="10" autocomplete="off" />
+          <span class="hint">Typical 10&ndash;20 &deg;C above ambient</span>
+        </div>
+        <div class="field">
+          <label for="thickness">Copper thickness</label>
+          <select id="thickness">
+            <option value="0.5">0.5 oz &mdash; 17.5 &micro;m</option>
+            <option value="1" selected>1 oz &mdash; 35 &micro;m</option>
+            <option value="2">2 oz &mdash; 70 &micro;m</option>
+            <option value="3">3 oz &mdash; 105 &micro;m</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="layer">Layer</label>
+          <select id="layer">
+            <option value="external" selected>External (k = 0.048)</option>
+            <option value="internal">Internal (k = 0.024)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="message" class="msg hidden"></div>
+
+      <div id="results" hidden>
+        <div class="trace-result-bar">
+          <div class="stat"><div class="label">Min. width</div><div class="value" id="out-width-mil">&ndash;</div></div>
+          <div class="stat"><div class="label">Width (mm)</div><div class="value small" id="out-width-mm">&ndash;</div></div>
+          <div class="stat"><div class="label">Cross-section</div><div class="value small" id="out-area">&ndash;</div></div>
+          <div class="stat"><div class="label">R / cm</div><div class="value small" id="out-res">&ndash;</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trace-svg-wrap">
+      <svg id="trace-svg" viewBox="0 0 240 200" width="240" height="200" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+  </div>
+</section>

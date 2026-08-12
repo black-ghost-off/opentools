@@ -1,0 +1,52 @@
+<style>
+  .wb-layout{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:start;margin-top:1rem}
+  @media(max-width:520px){.wb-layout{grid-template-columns:1fr}}
+  .wb-svg-wrap{display:flex;justify-content:center}
+  .wb-result-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:1rem}
+  @media(max-width:480px){.wb-result-bar{grid-template-columns:1fr 1fr}}
+</style>
+
+<section class="card">
+  <div class="wb-layout">
+    <div class="wb-svg-wrap">
+      <svg id="wb-svg" viewBox="-20 -5 245 230" width="270" height="253" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <div>
+      <div class="form-grid">
+        <div class="field">
+          <label for="vex">Excitation Vex (V)</label>
+          <input id="vex" type="text" inputmode="decimal" value="5" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="wb-r1">R1 &#8212; top-left (&#937;)</label>
+          <input id="wb-r1" type="text" inputmode="decimal" value="1000" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="wb-r2">R2 &#8212; top-right (&#937;)</label>
+          <input id="wb-r2" type="text" inputmode="decimal" value="1000" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="wb-r3">R3 &#8212; bottom-left (&#937;)</label>
+          <input id="wb-r3" type="text" inputmode="decimal" value="1000" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="wb-r4">R4 &#8212; bottom-right (&#937;)</label>
+          <input id="wb-r4" type="text" inputmode="decimal" value="1010" autocomplete="off" />
+          <span class="hint">Sensing element / strain gauge</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Results</h2>
+    <div class="wb-result-bar">
+      <div class="stat"><div class="label">Vout</div><div class="value" id="out-vout">&ndash;</div></div>
+      <div class="stat"><div class="label">V+ node</div><div class="value small" id="out-vp">&ndash;</div></div>
+      <div class="stat"><div class="label">V&minus; node</div><div class="value small" id="out-vm">&ndash;</div></div>
+      <div class="stat"><div class="label">Status</div><div class="value small" id="out-bal">&ndash;</div></div>
+    </div>
+  </div>
+</section>

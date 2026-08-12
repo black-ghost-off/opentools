@@ -1,0 +1,9 @@
+{
+  "slug": "ieee754",
+  "title": "IEEE-754 Float Inspector",
+  "summary": "Convert between floats and their bit patterns; inspect sign, exponent and mantissa.",
+  "category": "Number & Data",
+    "icon": "\ud83d\udd2c",
+  "body": "body.html",
+  "scripts": ["assets/ieee754.js"]
+}

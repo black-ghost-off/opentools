@@ -1,0 +1,58 @@
+<style>
+  .filt-layout{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:start;margin-top:1rem}
+  @media(max-width:520px){.filt-layout{grid-template-columns:1fr}}
+  .filt-svg-wrap{display:flex;justify-content:center}
+  .filt-result-bar{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:1rem}
+</style>
+
+<section class="card">
+  <div class="form-grid" style="margin-bottom:.25rem">
+    <div class="field">
+      <label for="filterType">Filter type</label>
+      <select id="filterType">
+        <option value="rc-lp">RC Low-pass</option>
+        <option value="rc-hp">RC High-pass</option>
+        <option value="rl-lp">RL Low-pass</option>
+        <option value="rl-hp">RL High-pass</option>
+        <option value="lc">LC Band-pass / resonant</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="filt-layout">
+    <div class="filt-svg-wrap">
+      <svg id="filt-svg" viewBox="0 0 200 160" width="230" height="184" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <div>
+      <div class="form-grid">
+        <div class="field" id="r-field">
+          <label for="r-val">R (&#937;)</label>
+          <input id="r-val" type="text" inputmode="decimal" value="1000" autocomplete="off" />
+          <span class="hint">k = k&#937;, M = M&#937;</span>
+        </div>
+        <div class="field" id="c-field">
+          <label for="c-val">C (F)</label>
+          <input id="c-val" type="text" inputmode="decimal" value="100n" autocomplete="off" />
+          <span class="hint">n = nF, u = &micro;F, p = pF</span>
+        </div>
+        <div class="field" id="l-field" hidden>
+          <label for="l-val">L (H)</label>
+          <input id="l-val" type="text" inputmode="decimal" value="1m" autocomplete="off" />
+          <span class="hint">m = mH, u = &micro;H</span>
+        </div>
+      </div>
+
+      <div id="message" class="msg hidden"></div>
+
+      <div id="results" hidden>
+        <div class="filt-result-bar">
+          <div class="stat"><div class="label">Cutoff f<sub>c</sub></div><div class="value" id="out-fc">&ndash;</div></div>
+          <div class="stat" id="stat-tau"><div class="label">Time const. &tau;</div><div class="value small" id="out-tau">&ndash;</div></div>
+          <div class="stat" id="stat-z0" hidden><div class="label">Z<sub>0</sub> &Omega;</div><div class="value small" id="out-z0">&ndash;</div></div>
+          <div class="stat"><div class="label">&minus;3 dB at</div><div class="value small" id="out-3db">&ndash;</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

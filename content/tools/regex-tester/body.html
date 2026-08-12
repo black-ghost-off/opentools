@@ -1,0 +1,57 @@
+<section class="card">
+  <div class="form-grid">
+    <div class="field">
+      <label for="pattern">Pattern</label>
+      <input id="pattern" type="text" autocomplete="off" spellcheck="false" placeholder="\\b[A-Z][a-z]+\\b" />
+    </div>
+    <div class="field">
+      <label>Flags</label>
+      <div class="checkbox-grid" style="margin-top:0">
+        <label class="checkbox-row"><input type="checkbox" id="flag-g" checked /> g (global)</label>
+        <label class="checkbox-row"><input type="checkbox" id="flag-i" /> i (ignore case)</label>
+        <label class="checkbox-row"><input type="checkbox" id="flag-m" /> m (multiline)</label>
+        <label class="checkbox-row"><input type="checkbox" id="flag-s" /> s (dotAll)</label>
+        <label class="checkbox-row"><input type="checkbox" id="flag-u" /> u (unicode)</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:1rem">
+    <label for="test-string">Test string</label>
+    <textarea id="test-string" rows="6" autocomplete="off" spellcheck="false" placeholder="Paste text to test against the pattern"></textarea>
+  </div>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Matches</h2>
+    <div class="output-panel mono" id="highlighted"></div>
+    <p class="hint" id="match-count"></p>
+
+    <div class="table-wrap" id="groups-wrap" hidden>
+      <table class="results">
+        <thead><tr><th>#</th><th style="text-align:left">Match</th><th style="text-align:left">Groups</th><th>Index</th></tr></thead>
+        <tbody id="groups-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2 class="section-label">Replace</h2>
+  <div class="field">
+    <label for="replacement">Replacement (supports <code>$1</code>, <code>$&amp;</code>, etc.)</label>
+    <input id="replacement" type="text" autocomplete="off" spellcheck="false" placeholder="$1" />
+  </div>
+  <div class="code-block">
+    <button class="copy-btn" type="button" id="copy-replace">Copy</button>
+    <pre><code id="replace-out"></code></pre>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>The pattern is compiled with JavaScript's native <code>RegExp</code> engine
+  using the flags you select. Matches are highlighted in the test string, and
+  each match's capture groups are listed in the table below. The replace
+  section runs <code>String.replace()</code> live so you can preview a
+  substitution before using it elsewhere. Everything runs locally in your browser.</p>
+</section>

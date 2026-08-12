@@ -1,0 +1,61 @@
+<style>
+  .led-layout{display:grid;grid-template-columns:1fr 200px;gap:20px;align-items:start;margin-top:1rem}
+  @media(max-width:520px){.led-layout{grid-template-columns:1fr}}
+  .led-svg-wrap{display:flex;justify-content:center;align-items:center;min-height:130px}
+  .led-color-presets{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.75rem}
+  .led-preset{padding:.28rem .6rem;border-radius:5px;border:1.5px solid var(--border);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .12s;background:var(--surface-2);color:var(--text)}
+  .led-preset:hover{border-color:var(--accent);color:var(--accent)}
+  .led-result-bar{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:1rem}
+</style>
+
+<section class="card">
+  <div class="led-layout">
+    <div>
+      <p class="hint" style="margin-bottom:.6rem">Quick presets:</p>
+      <div class="led-color-presets">
+        <button class="led-preset" type="button" data-vf="2.0" data-color="#e74c3c" style="border-color:#e74c3c;color:#e74c3c">Red 2.0V</button>
+        <button class="led-preset" type="button" data-vf="2.1" data-color="#e67e22" style="border-color:#e67e22;color:#e67e22">Orange 2.1V</button>
+        <button class="led-preset" type="button" data-vf="2.2" data-color="#f1c40f" style="border-color:#b8a600;color:#b8a600">Yellow 2.2V</button>
+        <button class="led-preset" type="button" data-vf="3.2" data-color="#27ae60" style="border-color:#27ae60;color:#27ae60">Green 3.2V</button>
+        <button class="led-preset" type="button" data-vf="3.3" data-color="#2980b9" style="border-color:#2980b9;color:#2980b9">Blue 3.3V</button>
+        <button class="led-preset" type="button" data-vf="3.2" data-color="#e0e0e0" style="border-color:#aaa;color:#666">White 3.2V</button>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="vsupply">Supply Vs (V)</label>
+          <input id="vsupply" type="text" inputmode="decimal" value="5" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="vf">LED forward voltage Vf (V)</label>
+          <input id="vf" type="text" inputmode="decimal" value="2.0" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="lif">LED current If (mA)</label>
+          <input id="lif" type="text" inputmode="decimal" value="20" autocomplete="off" />
+          <span class="hint">Typical 10&ndash;20 mA</span>
+        </div>
+        <div class="field">
+          <label for="numLeds">LEDs in series</label>
+          <input id="numLeds" type="text" inputmode="numeric" value="1" autocomplete="off" />
+        </div>
+      </div>
+    </div>
+
+    <div class="led-svg-wrap">
+      <svg id="led-svg" viewBox="-35 -16 115 216" width="150" height="282" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+  </div>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Results</h2>
+    <div class="led-result-bar">
+      <div class="stat"><div class="label">Exact resistor</div><div class="value" id="out-r">&ndash;</div></div>
+      <div class="stat"><div class="label">Nearest E24</div><div class="value" id="out-e24">&ndash;</div></div>
+      <div class="stat"><div class="label">Power in R</div><div class="value small" id="out-pw">&ndash;</div></div>
+      <div class="stat"><div class="label">If with E24 R</div><div class="value small" id="out-ia">&ndash;</div></div>
+    </div>
+  </div>
+</section>

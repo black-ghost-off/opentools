@@ -1,0 +1,49 @@
+<section class="card">
+  <div class="split-grid">
+    <div class="field">
+      <label for="original">Original</label>
+      <textarea id="original" rows="10" autocomplete="off" spellcheck="false" placeholder="Paste the original text"></textarea>
+    </div>
+    <div class="field">
+      <label for="changed">Changed</label>
+      <textarea id="changed" rows="10" autocomplete="off" spellcheck="false" placeholder="Paste the changed text"></textarea>
+    </div>
+  </div>
+
+  <div class="form-grid" style="margin-top:1rem">
+    <div class="field">
+      <label for="mode">Diff mode</label>
+      <select id="mode">
+        <option value="word" selected>Word-level</option>
+        <option value="line">Line-level</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn" type="button" id="run">Compare</button>
+  </div>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <div class="result-summary">
+      <div class="stat"><div class="label">Added</div><div class="value small" id="stat-added">&ndash;</div></div>
+      <div class="stat"><div class="label">Removed</div><div class="value small" id="stat-removed">&ndash;</div></div>
+      <div class="stat"><div class="label">Unchanged</div><div class="value small" id="stat-same">&ndash;</div></div>
+    </div>
+    <h2 class="section-label">Diff</h2>
+    <div class="output-panel mono" id="diff-out"></div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>Text is tokenised (into words or lines) and compared with a classic
+  longest common subsequence (LCS) diff, the same technique behind <code>diff</code>
+  and Git's line-level diff. Matched tokens are shown as-is, removed tokens are
+  struck through in red, added tokens are highlighted in green. Everything runs
+  locally in your browser.</p>
+  <p class="hint">Very large inputs (roughly 20,000+ characters) are rejected to
+  keep the comparison fast, since LCS diffing is O(n&times;m).</p>
+</section>

@@ -1,0 +1,41 @@
+<section class="card">
+  <div class="field">
+    <label for="input">Input text</label>
+    <textarea id="input" rows="3" autocomplete="off" spellcheck="false"
+      placeholder="e.g. Caf&eacute; du Monde &mdash; 10 Best R&eacute;sum&eacute;s!"></textarea>
+  </div>
+
+  <div class="form-grid" style="margin-top:1rem">
+    <div class="field">
+      <label for="separator">Separator</label>
+      <select id="separator">
+        <option value="-" selected>Hyphen ( - )</option>
+        <option value="_">Underscore ( _ )</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="max-length">Max length</label>
+      <input id="max-length" type="number" min="0" value="0" />
+      <span class="hint">0 = no limit</span>
+    </div>
+    <div class="field">
+      <label class="checkbox-row" for="lowercase" style="font-weight:600"><input type="checkbox" id="lowercase" checked /> Lowercase</label>
+    </div>
+  </div>
+
+  <h2 class="section-label">Slug</h2>
+  <div class="code-block">
+    <button class="copy-btn" type="button" id="copy-out">Copy</button>
+    <pre><code id="output"></code></pre>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>Text is Unicode-normalised (NFKD) to split accented letters from their
+  diacritical marks, the marks are stripped (transliterating <code>&eacute;</code> &rarr;
+  <code>e</code>, <code>&uuml;</code> &rarr; <code>u</code>, etc.), then anything that
+  isn't a letter or digit becomes the separator. Repeated separators collapse
+  and leading/trailing separators are trimmed. Everything runs locally in your
+  browser.</p>
+</section>

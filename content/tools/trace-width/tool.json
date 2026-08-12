@@ -1,0 +1,9 @@
+{
+  "slug": "trace-width",
+  "title": "PCB Trace Width (IPC-2221)",
+  "summary": "Calculate minimum PCB trace width for a given current and temperature rise per IPC-2221.",
+  "category": "Electronics",
+    "icon": "📏",
+  "body": "body.html",
+  "scripts": ["assets/trace-width.js"]
+}

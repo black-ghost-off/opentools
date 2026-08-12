@@ -1,0 +1,9 @@
+{
+  "slug": "opamp-gain",
+  "title": "Op-Amp Gain Calculator",
+  "summary": "Select resistors for inverting or non-inverting op-amp configurations from a target gain.",
+  "category": "Electronics",
+    "icon": "📐",
+  "body": "body.html",
+  "scripts": ["assets/opamp-gain.js"]
+}

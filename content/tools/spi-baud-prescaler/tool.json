@@ -1,0 +1,9 @@
+{
+  "slug": "spi-baud-prescaler",
+  "title": "SPI Baud Prescaler",
+  "summary": "Closest achievable SPI clock from a peripheral clock and prescaler, for STM32 and AVR.",
+  "category": "Embedded",
+    "icon": "\ud83d\udd01",
+  "body": "body.html",
+  "scripts": ["assets/spi-baud-prescaler.js"]
+}

@@ -1,0 +1,107 @@
+<section class="card">
+  <form id="can-form" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="clock">CAN clock (Hz)</label>
+        <input id="clock" name="clock" type="text" inputmode="numeric" value="36000000" />
+        <span class="hint">Peripheral clock feeding the CAN controller.</span>
+      </div>
+
+      <div class="field">
+        <label for="bitrate">Target bitrate (bps)</label>
+        <input id="bitrate" name="bitrate" type="text" inputmode="numeric" value="500000" />
+        <span class="hint">e.g. 125000, 250000, 500000, 1000000.</span>
+      </div>
+
+      <div class="field">
+        <label for="samplePoint">Target sample point (%)</label>
+        <input id="samplePoint" name="samplePoint" type="text" inputmode="decimal" value="87.5" />
+        <span class="hint">87.5% is the common CANopen/DeviceNet default.</span>
+      </div>
+
+      <div class="field">
+        <label for="error">Accepted bitrate error (%)</label>
+        <input id="error" name="error" type="text" inputmode="decimal" value="0.5" />
+      </div>
+
+      <div class="field">
+        <label for="maxResults">Max results</label>
+        <input id="maxResults" name="maxResults" type="text" inputmode="numeric" value="15" />
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit">Calculate</button>
+      <button class="btn secondary" type="reset">Reset</button>
+    </div>
+  </form>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Best match</h2>
+    <div class="result-summary">
+      <div class="stat">
+        <div class="label">BRP</div>
+        <div class="value" id="best-brp">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">TSEG1 (BS1)</div>
+        <div class="value" id="best-tseg1">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">TSEG2 (BS2)</div>
+        <div class="value" id="best-tseg2">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">SJW</div>
+        <div class="value" id="best-sjw">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Actual bitrate</div>
+        <div class="value small" id="best-bitrate">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Sample point</div>
+        <div class="value small" id="best-sp">&ndash;</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <button class="copy-btn" type="button" id="copy-code">Copy</button>
+      <pre><code id="code-out"></code></pre>
+    </div>
+
+    <h2 class="section-label">All solutions <span id="result-count"></span></h2>
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>BRP</th>
+            <th>TSEG1</th>
+            <th>TSEG2</th>
+            <th>SJW</th>
+            <th>Bitrate</th>
+            <th>Bitrate err (%)</th>
+            <th>Sample point</th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>A CAN bit is divided into <code>1 + TSEG1 + TSEG2</code> time quanta, each of length
+  <code>t<sub>q</sub> = (BRP + 1) / f<sub>CANCLK</sub></code>:</p>
+  <div class="formula">bitrate = f<sub>CANCLK</sub> &divide; ((BRP + 1) &times; (1 + TSEG1 + TSEG2))</div>
+  <div class="formula">sample point = (1 + TSEG1) &divide; (1 + TSEG1 + TSEG2) &times; 100%</div>
+  <p>The tool sweeps the total quanta per bit (8..25) and prescaler to find exact or near-exact
+  bitrate matches, then splits the remaining quanta between <code>TSEG1</code> and
+  <code>TSEG2</code> to land as close as possible to your target sample point.
+  <code>SJW</code> (synchronization jump width) is capped at <code>min(TSEG2, 4)</code>, the
+  typical hardware limit.</p>
+</section>

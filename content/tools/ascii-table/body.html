@@ -1,0 +1,33 @@
+<section class="card">
+  <div class="form-grid">
+    <div class="field">
+      <label for="search">Search</label>
+      <input id="search" type="text" autocomplete="off" spellcheck="false" placeholder="e.g. A, 65, 0x41, newline, LF" />
+      <span class="hint">Match by character, name, or dec / hex / oct value.</span>
+    </div>
+    <div class="field">
+      <label for="cp">Unicode code point</label>
+      <input id="cp" type="text" autocomplete="off" spellcheck="false" placeholder="U+2764 or 10084" />
+      <span class="hint">Look up any code point beyond ASCII.</span>
+    </div>
+  </div>
+  <div id="cp-result" class="msg hidden"></div>
+</section>
+
+<div class="table-wrap">
+  <table class="results ascii" id="ascii-table">
+    <thead>
+      <tr>
+        <th>Char</th><th>Dec</th><th>Hex</th><th>Oct</th><th>Binary</th><th>Name / escape</th>
+      </tr>
+    </thead>
+    <tbody id="ascii-body"></tbody>
+  </table>
+</div>
+
+<section class="prose">
+  <h2>Notes</h2>
+  <p>The table lists all 128 ASCII code points. Control characters (0–31, 127)
+  show their common name and C escape. Use the search box to filter, or the code
+  point box to inspect any Unicode character.</p>
+</section>

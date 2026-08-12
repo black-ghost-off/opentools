@@ -1,0 +1,9 @@
+{
+  "slug": "crc-calculator",
+  "title": "CRC Calculator",
+  "summary": "CRC-8/16/32 with configurable poly, init, refin/refout and xorout, computed live from text or hex bytes.",
+  "category": "Embedded",
+    "icon": "\u2705",
+  "body": "body.html",
+  "scripts": ["assets/crc-calculator.js"]
+}

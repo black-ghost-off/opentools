@@ -1,0 +1,9 @@
+{
+  "slug": "can-bit-timing",
+  "title": "CAN Bit Timing Calculator",
+  "summary": "Solve BRP, TSEG1, TSEG2 and SJW for a target CAN bitrate and sample point.",
+  "category": "Embedded",
+    "icon": "\ud83d\ude8c",
+  "body": "body.html",
+  "scripts": ["assets/can-bit-timing.js"]
+}

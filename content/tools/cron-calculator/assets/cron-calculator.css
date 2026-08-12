@@ -1,0 +1,161 @@
+/* Builder container ------------------------------------------------ */
+#builder-details {
+  margin: 1.25rem 0 1.5rem;
+}
+#builder-details > summary {
+  cursor: pointer;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  user-select: none;
+  color: var(--text-muted);
+}
+#builder-details > summary::-webkit-details-marker { display: none; }
+#builder-details > summary::before {
+  content: "▸";
+  display: inline-block;
+  font-size: 0.7em;
+  color: var(--accent);
+  transition: transform 0.15s ease;
+}
+#builder-details[open] > summary::before { transform: rotate(90deg); }
+#builder-details > summary:hover { color: var(--text); }
+#builder-details > .hint { margin-top: 0.75rem; }
+
+.cron-builder {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.6rem;
+  margin: 0.85rem 0 0.25rem;
+}
+
+/* Field card --------------------------------------------------------- */
+.cfb {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 0.55rem 0.7rem 0.65rem;
+  box-shadow: var(--shadow);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.cfb:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.cfb-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+.cfb-title {
+  font-weight: 600;
+  font-size: 0.76rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text-muted);
+}
+
+/* Shared control chrome: match the site's select/input look, themed ---- */
+.cfb select,
+.cfb input[type="number"] {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  padding: 0.3rem 0.45rem;
+  line-height: 1.2;
+}
+.cfb select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 1.7rem;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%239aa7b6' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.55rem center;
+}
+.cfb select:hover,
+.cfb input[type="number"]:hover { border-color: var(--accent); }
+.cfb select:focus,
+.cfb input[type="number"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.cfb input[type="number"] { width: 4.4rem; }
+
+.cfb-mode { width: 100%; font-weight: 600; }
+
+/* Mode panels --------------------------------------------------------- */
+.cfb-mode-panel {
+  margin-top: 0.5rem;
+  animation: cfb-fade-in 0.12s ease;
+}
+.cfb-mode-panel[hidden] { display: none; }
+@keyframes cfb-fade-in {
+  from { opacity: 0; transform: translateY(-2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cfb-range,
+.cfb-step {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+}
+
+/* Chip picker ("Specific" mode) ---------------------------------------- */
+.chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  max-height: 110px;
+  overflow-y: auto;
+  padding: 0.15rem 0.35rem 0.15rem 0.05rem;
+  margin: 0 -0.05rem;
+}
+.chip-grid::-webkit-scrollbar { width: 8px; }
+.chip-grid::-webkit-scrollbar-track { background: transparent; }
+.chip-grid::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.9rem;
+  padding: 0.24rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  user-select: none;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease, transform 0.08s ease;
+}
+.chip:hover {
+  border-color: var(--accent);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+.chip:active { transform: translateY(0); }
+.chip.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(47, 109, 246, 0.35);
+}

@@ -1,0 +1,40 @@
+<section class="card">
+  <div class="form-grid">
+    <div class="field">
+      <label for="unit">Generate</label>
+      <select id="unit">
+        <option value="words">Words</option>
+        <option value="sentences">Sentences</option>
+        <option value="paragraphs" selected>Paragraphs</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="count">Count</label>
+      <input id="count" type="number" min="1" max="200" value="3" />
+    </div>
+    <div class="field">
+      <label class="checkbox-row" for="start-classic" style="font-weight:600">
+        <input type="checkbox" id="start-classic" checked /> Start with &ldquo;Lorem ipsum dolor sit amet&hellip;&rdquo;
+      </label>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn" type="button" id="generate">Generate</button>
+  </div>
+
+  <h2 class="section-label">Output</h2>
+  <div class="code-block">
+    <button class="copy-btn" type="button" id="copy-out">Copy</button>
+    <pre><code id="output"></code></pre>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>Sentences are assembled from a fixed bank of classic Lorem Ipsum words,
+  with randomised sentence lengths (8&ndash;16 words) and paragraph lengths
+  (3&ndash;7 sentences). Enable &ldquo;Start with&hellip;&rdquo; to prefix the
+  output with the traditional opening line. Everything runs locally in your
+  browser.</p>
+</section>

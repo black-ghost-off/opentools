@@ -1,0 +1,56 @@
+<style>
+  .ohm-tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:.75rem}
+  .ohm-tile{background:var(--surface-2);border:2px solid var(--border);border-radius:10px;padding:12px 14px;transition:border-color .15s,background .15s}
+  .ohm-tile.computed{border-color:var(--accent);background:var(--accent-soft)}
+  .ohm-tile .tile-hdr{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+  .ohm-tile .tile-sym{font-size:1.5rem;font-weight:800;color:var(--accent);font-family:var(--mono);min-width:22px}
+  .ohm-tile .tile-nm{font-size:.72rem;color:var(--text-muted);font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+  .ohm-tile input{width:100%;background:var(--surface);border:1.5px solid var(--border);border-radius:6px;padding:7px 10px;font-size:1rem;color:var(--text);font-family:var(--mono)}
+  .ohm-tile input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+  .ohm-tile input.is-computed{color:var(--accent);font-weight:600;background:transparent;border-color:transparent;cursor:default}
+  .ohm-tile .tile-unit{font-size:.68rem;color:var(--text-muted);margin-top:4px}
+  .ohm-tri{display:block;width:100%;max-width:340px;margin:1rem auto 0}
+  .ohm-formulas{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:1rem}
+  .ohm-formula-card{background:var(--surface-2);border-radius:8px;padding:8px 12px;font-size:.78rem;font-family:var(--mono);color:var(--text-muted);text-align:center}
+  .ohm-formula-card strong{color:var(--text);display:block;font-size:.95rem;margin-bottom:2px}
+</style>
+
+<section class="card">
+  <p class="hint" style="margin-bottom:.5rem">Fill any <strong>two</strong> fields — the rest update live.</p>
+
+  <div class="ohm-tiles">
+    <div class="ohm-tile" id="tile-v">
+      <div class="tile-hdr"><span class="tile-sym">V</span><span class="tile-nm">Voltage</span></div>
+      <input id="voltage" type="text" inputmode="decimal" placeholder="e.g. 5 or 12" autocomplete="off" />
+      <div class="tile-unit">volts &middot; supports k, m</div>
+    </div>
+    <div class="ohm-tile" id="tile-i">
+      <div class="tile-hdr"><span class="tile-sym">I</span><span class="tile-nm">Current</span></div>
+      <input id="current" type="text" inputmode="decimal" placeholder="e.g. 20m or 0.02" autocomplete="off" />
+      <div class="tile-unit">amps &middot; m = mA, u = &micro;A</div>
+    </div>
+    <div class="ohm-tile" id="tile-r">
+      <div class="tile-hdr"><span class="tile-sym">R</span><span class="tile-nm">Resistance</span></div>
+      <input id="resistance" type="text" inputmode="decimal" placeholder="e.g. 220 or 4.7k" autocomplete="off" />
+      <div class="tile-unit">ohms &middot; k = k&Omega;, M = M&Omega;</div>
+    </div>
+    <div class="ohm-tile" id="tile-p">
+      <div class="tile-hdr"><span class="tile-sym">P</span><span class="tile-nm">Power</span></div>
+      <input id="power" type="text" inputmode="decimal" placeholder="e.g. 0.25 or 500m" autocomplete="off" />
+      <div class="tile-unit">watts &middot; m = mW</div>
+    </div>
+  </div>
+
+  <div style="margin-top:.6rem">
+    <button class="btn secondary" id="clearBtn" type="button" style="font-size:.82rem;padding:.35rem .9rem">Clear all</button>
+  </div>
+
+  <div id="message" class="msg hidden"></div>
+
+  <svg class="ohm-tri" id="ohm-tri" viewBox="0 0 340 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+
+  <div class="ohm-formulas">
+    <div class="ohm-formula-card"><strong>V = I &times; R</strong>I = V / R &nbsp; R = V / I</div>
+    <div class="ohm-formula-card"><strong>P = V &times; I</strong>P = I&sup2; &times; R &nbsp; P = V&sup2; / R</div>
+  </div>
+</section>

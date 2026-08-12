@@ -1,0 +1,69 @@
+<section class="card">
+  <div class="form-grid">
+    <div class="field">
+      <label for="bin">Binary</label>
+      <input id="bin" data-base="2" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="1010" />
+      <span class="hint">Digits 0-1. Spaces and <code>0b</code> allowed.</span>
+    </div>
+    <div class="field">
+      <label for="oct">Octal</label>
+      <input id="oct" data-base="8" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="12" />
+      <span class="hint">Digits 0-7. <code>0o</code> allowed.</span>
+    </div>
+    <div class="field">
+      <label for="dec">Decimal</label>
+      <input id="dec" data-base="10" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="10" />
+      <span class="hint">Signed integer.</span>
+    </div>
+    <div class="field">
+      <label for="hex">Hexadecimal</label>
+      <input id="hex" data-base="16" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="A" />
+      <span class="hint">Digits 0-9 A-F. <code>0x</code> allowed.</span>
+    </div>
+  </div>
+
+  <div class="form-grid" style="margin-top:1rem">
+    <div class="field">
+      <label for="width">Bit width</label>
+      <select id="width">
+        <option value="0">Unbounded</option>
+        <option value="8">8-bit</option>
+        <option value="16" selected>16-bit</option>
+        <option value="32">32-bit</option>
+        <option value="64">64-bit</option>
+      </select>
+      <span class="hint">Limits range and enables two's complement.</span>
+    </div>
+    <div class="field">
+      <label for="signed">Interpretation</label>
+      <select id="signed">
+        <option value="unsigned">Unsigned</option>
+        <option value="signed" selected>Signed (two's complement)</option>
+      </select>
+      <span class="hint">How the decimal value is read.</span>
+    </div>
+  </div>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Details</h2>
+    <div class="result-summary">
+      <div class="stat"><div class="label">Bits set</div><div class="value small" id="popcount">&ndash;</div></div>
+      <div class="stat"><div class="label">Width</div><div class="value small" id="widthOut">&ndash;</div></div>
+      <div class="stat"><div class="label">Bytes (LE)</div><div class="value small" id="bytesLE">&ndash;</div></div>
+      <div class="stat"><div class="label">Bytes (BE)</div><div class="value small" id="bytesBE">&ndash;</div></div>
+    </div>
+    <div class="code-block">
+      <pre><code id="binGroup"></code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>Notes</h2>
+  <p>Type in any field and the others update live. Choosing a fixed
+  <strong>bit width</strong> masks the value and, for signed mode, shows the
+  <strong>two's-complement</strong> interpretation. Values that don't fit the
+  selected width are rejected.</p>
+</section>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{{ config.description }}" />
+  <title>{{ page_title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="{{ root }}static/css/style.css" />
+  {% block head_extra %}{% endblock %}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{{ root }}index.html">
+        <span class="brand-mark">&#9881;</span>
+        <span class="brand-name">{{ config.title }}</span>
+      </a>
+      <nav class="site-nav">
+        {% if config.repo_url %}
+        <a href="{{ config.repo_url }}" target="_blank" rel="noopener">GitHub</a>
+        {% endif %}
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">&#9790;</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="site-main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>&copy; {{ year }} {{ config.author }}. Open source.</span>
+      <span class="built-at">Built {{ built_at }}</span>
+    </div>
+  </footer>
+
+  <script src="{{ root }}static/js/main.js" defer></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,46 @@
+<style>
+  .uc-swap-row{display:flex;align-items:center;justify-content:center;margin:.25rem 0}
+  .uc-swap-row .btn{font-size:1.1rem;line-height:1;padding:.4rem .7rem}
+</style>
+
+<section class="card">
+  <div class="field">
+    <label for="category">Category</label>
+    <select id="category">
+      <option value="length">Length</option>
+      <option value="mass">Mass</option>
+      <option value="temperature">Temperature</option>
+      <option value="dataRate">Data Rate</option>
+      <option value="dataSize">Data Size</option>
+      <option value="frequency">Frequency</option>
+      <option value="pressure">Pressure</option>
+    </select>
+  </div>
+
+  <div class="form-grid" style="margin-top:1rem">
+    <div class="field">
+      <label for="fromValue">From</label>
+      <input id="fromValue" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="1" />
+      <select id="fromUnit"></select>
+    </div>
+    <div class="field">
+      <label for="toValue">To</label>
+      <input id="toValue" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="0" />
+      <select id="toUnit"></select>
+    </div>
+  </div>
+
+  <div class="uc-swap-row">
+    <button class="btn secondary" id="swapBtn" type="button" title="Swap units">&#8646; Swap</button>
+  </div>
+
+  <div id="message" class="msg hidden"></div>
+</section>
+
+<section class="prose">
+  <h2>Notes</h2>
+  <p>Type in either field and the other updates live. Switching <strong>category</strong>
+  resets both unit selectors. <strong>Data Rate</strong> uses decimal (1000-based) SI
+  prefixes for bits/bytes per second; <strong>Data Size</strong> uses binary (1024-based)
+  prefixes, matching how operating systems typically report file sizes.</p>
+</section>

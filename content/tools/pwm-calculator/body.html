@@ -1,0 +1,105 @@
+<section class="card">
+  <form id="pwm-form" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="clock">Timer clock (Hz)</label>
+        <input id="clock" name="clock" type="text" inputmode="numeric" value="16000000" />
+        <span class="hint">Timer input clock after any bus prescaler.</span>
+      </div>
+
+      <div class="field">
+        <label for="prescaler">Prescaler (PSC+1)</label>
+        <input id="prescaler" name="prescaler" type="text" inputmode="numeric" value="1" />
+        <span class="hint">Divides the timer clock before counting.</span>
+      </div>
+
+      <div class="field">
+        <label for="solveMode">Solve for</label>
+        <select id="solveMode" name="solveMode">
+          <option value="freq" selected>Target frequency</option>
+          <option value="bits">Target resolution (bits)</option>
+        </select>
+        <span class="hint">Pick which one drives the other.</span>
+      </div>
+
+      <div class="field">
+        <label for="target">Target PWM frequency (Hz)</label>
+        <input id="target" name="target" type="text" inputmode="numeric" value="20000" />
+        <span class="hint">Used when solving for frequency.</span>
+      </div>
+
+      <div class="field">
+        <label for="bits">Target resolution (bits)</label>
+        <input id="bits" name="bits" type="text" inputmode="numeric" value="10" />
+        <span class="hint">Used when solving for resolution.</span>
+      </div>
+
+      <div class="field">
+        <label for="duty">Duty cycle (%)</label>
+        <input id="duty" name="duty" type="text" inputmode="decimal" value="50" />
+        <span class="hint">Computes the CCR compare value.</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit">Calculate</button>
+      <button class="btn secondary" type="reset">Reset</button>
+    </div>
+  </form>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Result</h2>
+    <div class="result-summary">
+      <div class="stat">
+        <div class="label">ARR (period)</div>
+        <div class="value" id="out-arr">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">CCR (duty)</div>
+        <div class="value" id="out-ccr">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Actual frequency</div>
+        <div class="value small" id="out-freq">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Resolution</div>
+        <div class="value small" id="out-bits">&ndash;</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <button class="copy-btn" type="button" id="copy-code">Copy</button>
+      <pre><code id="code-out"></code></pre>
+    </div>
+
+    <h2 class="section-label">Resolution / frequency trade-off</h2>
+    <p class="hint">Max achievable PWM frequency at common resolutions, for this clock and prescaler.</p>
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>Resolution</th>
+            <th>Levels</th>
+            <th>ARR</th>
+            <th>Max frequency</th>
+          </tr>
+        </thead>
+        <tbody id="tradeoff-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>A PWM signal from a hardware timer counts from 0 to <code>ARR</code> at the prescaled clock
+  rate, so its frequency and resolution are directly linked:</p>
+  <div class="formula">f<sub>PWM</sub> = f<sub>timer</sub> &divide; (prescaler &times; (ARR + 1))</div>
+  <div class="formula">resolution (bits) = log&#8322;(ARR + 1)</div>
+  <p>Higher resolution (more duty-cycle steps) needs a larger <code>ARR</code>, which lowers the
+  achievable frequency for a fixed clock &mdash; the classic PWM trade-off. The compare value is
+  <code>CCR = round((ARR + 1) &times; duty / 100)</code>.</p>
+</section>

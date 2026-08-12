@@ -1,0 +1,9 @@
+{
+  "slug": "uart-baud-rate",
+  "title": "Baud Rate / UART Register Calculator",
+  "summary": "USART BRR (STM32, over-sampling 8/16) and UBRR (AVR) register values with actual baud error %.",
+  "category": "Embedded",
+    "icon": "\ud83d\udd0c",
+  "body": "body.html",
+  "scripts": ["assets/uart-baud-rate.js"]
+}

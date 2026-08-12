@@ -1,0 +1,9 @@
+{
+  "slug": "json-formatter",
+  "title": "JSON Formatter / Validator",
+  "summary": "Pretty-print, minify, and validate JSON with error location.",
+  "category": "Text",
+    "icon": "\ud83e\uddfe",
+  "body": "body.html",
+  "scripts": ["assets/json-formatter.js"]
+}

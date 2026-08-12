@@ -1,0 +1,9 @@
+{
+  "slug": "led-resistor",
+  "title": "LED Series Resistor",
+  "summary": "Find the series resistor value and power rating for an LED from supply voltage, forward voltage, and current.",
+  "category": "Electronics",
+    "icon": "💡",
+  "body": "body.html",
+  "scripts": ["assets/led-resistor.js"]
+}

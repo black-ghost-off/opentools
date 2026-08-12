@@ -1,0 +1,9 @@
+{
+  "slug": "word-counter",
+  "title": "Word & Character Counter",
+  "summary": "Words, characters, sentences, paragraphs, and estimated reading time.",
+  "category": "Text",
+    "icon": "\ud83d\udcca",
+  "body": "body.html",
+  "scripts": ["assets/word-counter.js"]
+}

@@ -1,0 +1,102 @@
+<section class="card">
+  <form id="fixed-form" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="totalBits">Total bits</label>
+        <select id="totalBits" name="totalBits">
+          <option value="8">8</option>
+          <option value="16" selected>16</option>
+          <option value="32">32</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="fracBits">Fractional bits (n)</label>
+        <input id="fracBits" name="fracBits" type="text" inputmode="numeric" value="8" />
+        <span class="hint">Q<em>m</em>.<em>n</em> &mdash; e.g. Q1.15 has n=15.</span>
+      </div>
+
+      <div class="field">
+        <label for="signed">
+          <input id="signed" name="signed" type="checkbox" checked style="width:auto; margin-right:0.4rem;" />
+          Signed (two's complement)
+        </label>
+      </div>
+
+      <div class="field">
+        <label for="valueType">Input type</label>
+        <select id="valueType" name="valueType">
+          <option value="float" selected>Float value</option>
+          <option value="rawDec">Raw integer (decimal)</option>
+          <option value="rawHex">Raw bits (hex)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="value">Value</label>
+        <input id="value" name="value" type="text" value="0.75" />
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit">Convert</button>
+      <button class="btn secondary" type="reset">Reset</button>
+    </div>
+  </form>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Result</h2>
+    <div class="result-summary">
+      <div class="stat">
+        <div class="label">Format</div>
+        <div class="value small" id="out-format">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Float value</div>
+        <div class="value" id="out-float">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Raw (signed dec)</div>
+        <div class="value small" id="out-raw-dec">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Raw (hex)</div>
+        <div class="value small" id="out-raw-hex">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Raw (binary)</div>
+        <div class="value small" id="out-raw-bin">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Resolution</div>
+        <div class="value small" id="out-resolution">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Range</div>
+        <div class="value small" id="out-range">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Quantization error</div>
+        <div class="value small" id="out-error">&ndash;</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <button class="copy-btn" type="button" id="copy-code">Copy</button>
+      <pre><code id="code-out"></code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>A <code>Qm.n</code> fixed-point number stores a real value as an integer scaled by
+  <code>2<sup>n</sup></code>, using <code>n</code> fractional bits and <code>m</code> integer bits
+  (plus a sign bit if signed):</p>
+  <div class="formula">raw = round(float &times; 2<sup>n</sup>) &nbsp;&nbsp;&nbsp; float = raw &divide; 2<sup>n</sup></div>
+  <p>The representable range and resolution follow directly from the bit widths. Values outside
+  the range are clamped to the nearest representable value, and the quantization error shows how
+  much precision was lost converting to fixed-point.</p>
+</section>

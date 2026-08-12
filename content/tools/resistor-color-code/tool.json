@@ -1,0 +1,9 @@
+{
+  "slug": "resistor-color-code",
+  "title": "Resistor Color Code",
+  "summary": "Decode 4, 5, or 6-band resistor color codes to value and tolerance, or encode a value to bands.",
+  "category": "Electronics",
+    "icon": "🎨",
+  "body": "body.html",
+  "scripts": ["assets/resistor-color-code.js"]
+}

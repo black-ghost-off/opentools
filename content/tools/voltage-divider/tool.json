@@ -1,0 +1,9 @@
+{
+  "slug": "voltage-divider",
+  "title": "Voltage Divider",
+  "summary": "Calculate output voltage, or find resistor values for a desired ratio.",
+  "category": "Electronics",
+    "icon": "🔌",
+  "body": "body.html",
+  "scripts": ["assets/voltage-divider.js"]
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "lorem-ipsum",
+  "title": "Lorem Ipsum Generator",
+  "summary": "Words, sentences, or paragraphs, with a custom starting phrase.",
+  "category": "Text",
+    "icon": "\ud83d\udcdc",
+  "body": "body.html",
+  "scripts": ["assets/lorem-ipsum.js"]
+}

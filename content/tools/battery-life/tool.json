@@ -1,0 +1,9 @@
+{
+  "slug": "battery-life",
+  "title": "Battery Life Estimator",
+  "summary": "Estimate battery life from capacity (mAh), average current, and optional duty cycling.",
+  "category": "Electronics",
+    "icon": "🔋",
+  "body": "body.html",
+  "scripts": ["assets/battery-life.js"]
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "markdown-previewer",
+  "title": "Markdown Previewer",
+  "summary": "Live-render Markdown to HTML side-by-side.",
+  "category": "Text",
+    "icon": "\ud83d\udcdd",
+  "body": "body.html",
+  "scripts": ["assets/markdown-previewer.js"]
+}

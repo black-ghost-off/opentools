@@ -1,0 +1,77 @@
+<style>
+  .vdiv-layout{display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:start;margin-top:1rem}
+  @media(max-width:500px){.vdiv-layout{grid-template-columns:1fr}}
+  .vdiv-svg-wrap{display:flex;justify-content:center}
+  .vdiv-fields .field{margin-bottom:.75rem}
+  .vdiv-result-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:1rem}
+  .vdiv-mode-tabs{display:flex;gap:6px;margin-bottom:1rem}
+  .vdiv-mode-tabs button{flex:1;padding:.4rem .5rem;font-size:.8rem;border:1.5px solid var(--border);border-radius:7px;background:var(--surface-2);color:var(--text-muted);cursor:pointer;font-weight:500;transition:all .15s}
+  .vdiv-mode-tabs button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+</style>
+
+<section class="card">
+  <div class="vdiv-mode-tabs">
+    <button id="tab-calc" class="active" type="button">Calculate Vout</button>
+    <button id="tab-solve" type="button">Solve for R</button>
+  </div>
+
+  <div class="vdiv-layout">
+    <div class="vdiv-svg-wrap">
+      <svg id="vdiv-svg" viewBox="0 0 165 240" width="198" height="288" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <div class="vdiv-fields">
+      <!-- Calc mode -->
+      <div id="calc-fields">
+        <div class="field">
+          <label for="vin">Vin (V)</label>
+          <input id="vin" type="text" inputmode="decimal" value="5" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="r1">R1 &#8212; top (&#937;)</label>
+          <input id="r1" type="text" inputmode="decimal" value="10000" autocomplete="off" />
+          <span class="hint">Vin &rarr; Vout node</span>
+        </div>
+        <div class="field">
+          <label for="r2">R2 &#8212; bottom (&#937;)</label>
+          <input id="r2" type="text" inputmode="decimal" value="10000" autocomplete="off" />
+          <span class="hint">Vout node &rarr; GND</span>
+        </div>
+      </div>
+      <!-- Solve mode -->
+      <div id="solve-fields" hidden>
+        <div class="field">
+          <label for="vin2">Vin (V)</label>
+          <input id="vin2" type="text" inputmode="decimal" value="12" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="vtgt">Target Vout (V)</label>
+          <input id="vtgt" type="text" inputmode="decimal" value="3.3" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="rknown">Known resistor (&#937;)</label>
+          <input id="rknown" type="text" inputmode="decimal" value="10000" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="rwhich">Which is known?</label>
+          <select id="rwhich">
+            <option value="r1">R1 is known &rarr; find R2</option>
+            <option value="r2">R2 is known &rarr; find R1</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Results</h2>
+    <div class="vdiv-result-bar">
+      <div class="stat"><div class="label">Vout</div><div class="value" id="out-vout">&ndash;</div></div>
+      <div class="stat"><div class="label">R1</div><div class="value small" id="out-r1">&ndash;</div></div>
+      <div class="stat"><div class="label">R2</div><div class="value small" id="out-r2">&ndash;</div></div>
+      <div class="stat"><div class="label">Idle current</div><div class="value small" id="out-cur">&ndash;</div></div>
+    </div>
+  </div>
+</section>

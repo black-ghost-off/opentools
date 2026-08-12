@@ -1,0 +1,47 @@
+<style>
+  .oa-layout{display:grid;grid-template-columns:1fr 220px;gap:20px;align-items:start;margin-top:.75rem}
+  @media(max-width:540px){.oa-layout{grid-template-columns:1fr}}
+  .oa-svg-wrap{display:flex;justify-content:center}
+  .oa-result-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:1rem}
+  .config-tabs{display:flex;gap:6px;margin-bottom:1rem}
+  .config-tabs button{flex:1;padding:.4rem .5rem;font-size:.82rem;border:1.5px solid var(--border);border-radius:7px;background:var(--surface-2);color:var(--text-muted);cursor:pointer;font-weight:500;transition:all .15s}
+  .config-tabs button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+</style>
+
+<section class="card">
+  <div class="config-tabs">
+    <button id="tab-ninv" class="active" type="button">Non-inverting</button>
+    <button id="tab-inv"  type="button">Inverting</button>
+  </div>
+
+  <div class="oa-layout">
+    <div>
+      <div class="form-grid">
+        <div class="field">
+          <label for="gain-target">Target gain</label>
+          <input id="gain-target" type="text" inputmode="decimal" value="10" autocomplete="off" />
+          <span class="hint" id="gain-hint">Non-inverting: &ge; 1 (e.g. 10 = +10&times;)</span>
+        </div>
+        <div class="field">
+          <label for="r1-fixed">R1 (&#937;)</label>
+          <input id="r1-fixed" type="text" inputmode="decimal" value="10000" autocomplete="off" />
+          <span class="hint" id="r1-hint">R1 is fixed &rarr; R2 is calculated</span>
+        </div>
+      </div>
+      <div id="message" class="msg hidden"></div>
+      <div id="results" hidden>
+        <div class="oa-result-bar">
+          <div class="stat"><div class="label">Gain</div><div class="value" id="out-gain">&ndash;</div></div>
+          <div class="stat"><div class="label">R1</div><div class="value small" id="out-r1">&ndash;</div></div>
+          <div class="stat"><div class="label">R2 (exact)</div><div class="value small" id="out-r2">&ndash;</div></div>
+          <div class="stat"><div class="label">R2 nearest E24</div><div class="value small" id="out-r2e24">&ndash;</div></div>
+          <div class="stat"><div class="label">Actual gain (E24)</div><div class="value small" id="out-gain-actual">&ndash;</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="oa-svg-wrap">
+      <svg id="oa-svg" viewBox="0 0 240 200" width="288" height="240" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+  </div>
+</section>

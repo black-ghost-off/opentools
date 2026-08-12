@@ -1,0 +1,80 @@
+<section class="card">
+  <form id="spi-form" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="clock">Peripheral clock (Hz)</label>
+        <input id="clock" name="clock" type="text" inputmode="numeric" value="84000000" />
+        <span class="hint">SPI/APB clock feeding the prescaler.</span>
+      </div>
+
+      <div class="field">
+        <label for="target">Target SPI clock (Hz)</label>
+        <input id="target" name="target" type="text" inputmode="numeric" value="10000000" />
+        <span class="hint">Desired SCK frequency (check slave max!).</span>
+      </div>
+
+      <div class="field">
+        <label for="constraint">Prefer</label>
+        <select id="constraint" name="constraint">
+          <option value="closest" selected>Closest match</option>
+          <option value="notExceed">Highest that does not exceed target</option>
+        </select>
+        <span class="hint">Some slaves have a hard maximum SCK.</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit">Calculate</button>
+      <button class="btn secondary" type="reset">Reset</button>
+    </div>
+  </form>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Best match</h2>
+    <div class="result-summary">
+      <div class="stat">
+        <div class="label">Prescaler</div>
+        <div class="value" id="best-presc">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Actual SPI clock</div>
+        <div class="value" id="best-freq">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Error</div>
+        <div class="value small" id="best-error">&ndash;</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <button class="copy-btn" type="button" id="copy-code">Copy</button>
+      <pre><code id="code-out"></code></pre>
+    </div>
+
+    <h2 class="section-label">All prescaler values</h2>
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>Prescaler</th>
+            <th>Actual SPI clock</th>
+            <th>Error (%)</th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>Most SPI peripherals (STM32 <code>BR[2:0]</code>, AVR <code>SPR1:0</code> + <code>SPI2X</code>)
+  only offer power-of-two clock dividers:</p>
+  <div class="formula">f<sub>SCK</sub> = f<sub>PCLK</sub> &divide; prescaler &nbsp;&nbsp; (prescaler &isin; {2, 4, 8, 16, 32, 64, 128, 256})</div>
+  <p>The tool evaluates every available prescaler and ranks them either by closeness to your
+  target or by the highest clock that still stays at or below it &mdash; useful when a slave
+  device specifies a hard maximum SCK frequency.</p>
+</section>

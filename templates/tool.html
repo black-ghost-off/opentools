@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block head_extra %}
+  {% for style in tool.styles %}
+  <link rel="stylesheet" href="{{ style }}" />
+  {% endfor %}
+{% endblock %}
+
+{% block content %}
+<article class="container tool-page">
+  <nav class="breadcrumb">
+    <a href="{{ root }}index.html">Tools</a>
+    <span aria-hidden="true">/</span>
+    <span>{{ tool.title }}</span>
+  </nav>
+
+  <header class="tool-header">
+    <h1><span class="tool-icon">{{ tool.icon }}</span> {{ tool.title }}</h1>
+    <p class="tool-summary">{{ tool.summary }}</p>
+  </header>
+
+  <div class="tool-content">
+    {{ tool.body_html | safe }}
+  </div>
+</article>
+{% endblock %}
+
+{% block scripts %}
+  {% for script in tool.scripts %}
+  <script src="{{ script }}" defer></script>
+  {% endfor %}
+{% endblock %}

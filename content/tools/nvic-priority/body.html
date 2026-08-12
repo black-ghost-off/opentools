@@ -1,0 +1,117 @@
+<section class="card">
+  <form id="nvic-form" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="bits">Implemented priority bits</label>
+        <select id="bits" name="bits">
+          <option value="2">2 bits (4 levels)</option>
+          <option value="3">3 bits (8 levels)</option>
+          <option value="4" selected>4 bits (16 levels) &mdash; typical STM32</option>
+          <option value="5">5 bits (32 levels)</option>
+          <option value="6">6 bits (64 levels)</option>
+          <option value="7">7 bits (128 levels)</option>
+          <option value="8">8 bits (256 levels)</option>
+        </select>
+        <span class="hint">__NVIC_PRIO_BITS for your MCU.</span>
+      </div>
+
+      <div class="field">
+        <label for="prigroup">PRIGROUP (0&ndash;7)</label>
+        <select id="prigroup" name="prigroup">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+        <span class="hint">AIRCR[10:8] priority grouping field.</span>
+      </div>
+
+      <div class="field">
+        <label for="preempt">Preempt priority (want)</label>
+        <input id="preempt" name="preempt" type="text" inputmode="numeric" value="0" />
+        <span class="hint">0 = highest urgency.</span>
+      </div>
+
+      <div class="field">
+        <label for="sub">Subpriority (want)</label>
+        <input id="sub" name="sub" type="text" inputmode="numeric" value="0" />
+        <span class="hint">Breaks ties between equal preempt priorities.</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit">Calculate</button>
+      <button class="btn secondary" type="reset">Reset</button>
+    </div>
+  </form>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Selected grouping</h2>
+    <div class="result-summary">
+      <div class="stat">
+        <div class="label">Preempt bits</div>
+        <div class="value" id="out-preempt-bits">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Sub bits</div>
+        <div class="value" id="out-sub-bits">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Preempt levels</div>
+        <div class="value small" id="out-preempt-levels">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Sub levels</div>
+        <div class="value small" id="out-sub-levels">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Encoded priority field</div>
+        <div class="value small" id="out-field">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">8-bit register value</div>
+        <div class="value small" id="out-regval">&ndash;</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <button class="copy-btn" type="button" id="copy-code">Copy</button>
+      <pre><code id="code-out"></code></pre>
+    </div>
+
+    <h2 class="section-label">All PRIGROUP values</h2>
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>PRIGROUP</th>
+            <th>Preempt bits</th>
+            <th>Sub bits</th>
+            <th>Preempt levels</th>
+            <th>Sub levels</th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>Cortex-M splits each interrupt's implemented priority bits into a <strong>preempt</strong>
+  group (can interrupt a lower preempt priority mid-handler) and a <strong>subpriority</strong>
+  (only orders pending interrupts of equal preempt priority). <code>PRIGROUP</code> (in
+  <code>SCB-&gt;AIRCR</code>) decides the split:</p>
+  <div class="formula">preempt bits = min(7 &minus; PRIGROUP, N) &nbsp;&nbsp;&nbsp; sub bits = N &minus; preempt bits</div>
+  <p>where <code>N</code> is the number of priority bits the silicon actually implements
+  (<code>__NVIC_PRIO_BITS</code>, 4 on most STM32 parts). The priority value passed to
+  <code>NVIC_SetPriority()</code> occupies the top <code>N</code> bits of the 8-bit priority
+  register field, so it is left-shifted by <code>8 &minus; N</code>.</p>
+</section>

@@ -1,0 +1,26 @@
+<section class="card">
+  <div class="field">
+    <label for="input">Text</label>
+    <textarea id="input" rows="10" autocomplete="off" spellcheck="false" placeholder="Paste or type your text here"></textarea>
+  </div>
+
+  <div class="result-summary">
+    <div class="stat"><div class="label">Words</div><div class="value" id="stat-words">0</div></div>
+    <div class="stat"><div class="label">Characters</div><div class="value" id="stat-chars">0</div></div>
+    <div class="stat"><div class="label">Chars (no spaces)</div><div class="value small" id="stat-chars-ns">0</div></div>
+    <div class="stat"><div class="label">Sentences</div><div class="value small" id="stat-sentences">0</div></div>
+    <div class="stat"><div class="label">Paragraphs</div><div class="value small" id="stat-paragraphs">0</div></div>
+    <div class="stat"><div class="label">Lines</div><div class="value small" id="stat-lines">0</div></div>
+    <div class="stat"><div class="label">Reading time</div><div class="value small" id="stat-reading">0 s</div></div>
+    <div class="stat"><div class="label">Speaking time</div><div class="value small" id="stat-speaking">0 s</div></div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>Words are counted as whitespace-separated tokens, sentences by
+  <code>.</code>/<code>!</code>/<code>?</code> terminators, and paragraphs by
+  blank-line-separated blocks. Reading time assumes 200 words/minute and
+  speaking time assumes 130 words/minute, both common estimates. Everything
+  runs locally in your browser as you type.</p>
+</section>

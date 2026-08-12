@@ -1,0 +1,9 @@
+{
+  "slug": "base64",
+  "title": "Base64 Encoder / Decoder",
+  "summary": "Encode text to Base64 or decode it back, with URL-safe alphabet, padding and line-wrap options.",
+  "category": "Number & Data",
+    "icon": "\ud83e\uddec",
+  "body": "body.html",
+  "scripts": ["assets/base64.js"]
+}

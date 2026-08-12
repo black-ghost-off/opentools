@@ -1,0 +1,9 @@
+{
+  "slug": "base-converter",
+  "title": "Base Converter",
+  "summary": "Convert between binary, octal, decimal and hex with bit-width and two's-complement view.",
+  "category": "Number & Data",
+    "icon": "\ud83d\udd22",
+  "body": "body.html",
+  "scripts": ["assets/base-converter.js"]
+}

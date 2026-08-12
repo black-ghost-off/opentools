@@ -1,0 +1,118 @@
+<section class="card">
+  <form id="stm32-form" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="clock">Timer base clock (Hz)</label>
+        <input id="clock" name="clock" type="text" inputmode="numeric" value="16000000" />
+        <span class="hint">Timer input clock (TIMxCLK), e.g. 16 MHz.</span>
+      </div>
+
+      <div class="field">
+        <label for="target">Target frequency (Hz)</label>
+        <input id="target" name="target" type="text" inputmode="numeric" value="1000" />
+        <span class="hint">Desired update / interrupt frequency.</span>
+      </div>
+
+      <div class="field">
+        <label for="bits">Counter width</label>
+        <select id="bits" name="bits">
+          <option value="16" selected>16-bit (0..65535)</option>
+          <option value="32">32-bit (0..4294967295)</option>
+          <option value="8">8-bit (0..255)</option>
+        </select>
+        <span class="hint">Register width of PSC &amp; ARR.</span>
+      </div>
+
+      <div class="field">
+        <label for="error">Accepted error (%)</label>
+        <input id="error" name="error" type="text" inputmode="decimal" value="0" />
+        <span class="hint">0 = only exact matches.</span>
+      </div>
+
+      <div class="field">
+        <label for="duty">Duty cycle (%)</label>
+        <input id="duty" name="duty" type="text" inputmode="decimal" value="50" />
+        <span class="hint">For PWM: computes the CCR value.</span>
+      </div>
+
+      <div class="field">
+        <label for="maxResults">Max results</label>
+        <input id="maxResults" name="maxResults" type="text" inputmode="numeric" value="20" />
+        <span class="hint">-1 to show every solution.</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit">Calculate</button>
+      <button class="btn secondary" type="reset">Reset</button>
+    </div>
+  </form>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Best match</h2>
+    <div class="result-summary">
+      <div class="stat">
+        <div class="label">PSC</div>
+        <div class="value" id="best-psc">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">ARR</div>
+        <div class="value" id="best-arr">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">CCR (duty)</div>
+        <div class="value" id="best-ccr">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Actual freq</div>
+        <div class="value small" id="best-freq">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Period</div>
+        <div class="value small" id="best-period">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Error</div>
+        <div class="value small" id="best-error">&ndash;</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <button class="copy-btn" type="button" id="copy-code">Copy</button>
+      <pre><code id="code-out"></code></pre>
+    </div>
+
+    <h2 class="section-label">All solutions <span id="result-count"></span></h2>
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>PSC</th>
+            <th>ARR</th>
+            <th>CCR</th>
+            <th>Actual freq (Hz)</th>
+            <th>Period</th>
+            <th>Error (%)</th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>An STM32 hardware timer counts pulses from its input clock through a prescaler.
+  The update (overflow) event frequency is:</p>
+  <div class="formula">f<sub>update</sub> = f<sub>timer</sub> &divide; ((PSC + 1) &times; (ARR + 1))</div>
+  <p>The tool sweeps every valid <code>PSC</code> value, solves for the matching
+  <code>ARR</code>, and keeps combinations whose resulting frequency is within your
+  accepted error. For PWM, the compare value is
+  <code>CCR = round((ARR + 1) &times; duty / 100)</code>.</p>
+  <p>Both <code>PSC</code> and <code>ARR</code> are stored as <em>value &minus; 1</em>
+  in the STM32 registers, which is why the formula adds 1 to each.</p>
+</section>

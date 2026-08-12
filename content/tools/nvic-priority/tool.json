@@ -1,0 +1,9 @@
+{
+  "slug": "nvic-priority",
+  "title": "NVIC Priority Calculator",
+  "summary": "Preempt / subpriority split from PRIGROUP, for Cortex-M NVIC interrupt priorities.",
+  "category": "Embedded",
+    "icon": "\ud83d\udea6",
+  "body": "body.html",
+  "scripts": ["assets/nvic-priority.js"]
+}

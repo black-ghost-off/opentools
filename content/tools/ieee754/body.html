@@ -1,0 +1,48 @@
+<section class="card">
+  <div class="form-grid">
+    <div class="field">
+      <label for="precision">Precision</label>
+      <select id="precision">
+        <option value="32" selected>Single (32-bit)</option>
+        <option value="64">Double (64-bit)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="floatIn">Decimal value</label>
+      <input id="floatIn" type="text" autocomplete="off" spellcheck="false" value="3.14159265" />
+      <span class="hint">e.g. <code>-0.5</code>, <code>1e-9</code>, <code>Infinity</code>, <code>NaN</code>.</span>
+    </div>
+    <div class="field">
+      <label for="hexIn">Hex bit pattern</label>
+      <input id="hexIn" type="text" autocomplete="off" spellcheck="false" placeholder="40490FDB" />
+      <span class="hint">Raw IEEE-754 bytes.</span>
+    </div>
+  </div>
+
+  <div id="message" class="msg hidden"></div>
+
+  <h2 class="section-label">Bit fields</h2>
+  <div class="bits-line"><code id="bits-view"></code></div>
+  <div class="result-summary">
+    <div class="stat"><div class="label">Sign</div><div class="value small" id="f-sign">&ndash;</div></div>
+    <div class="stat"><div class="label">Exponent (biased)</div><div class="value small" id="f-exp">&ndash;</div></div>
+    <div class="stat"><div class="label">Exponent (actual)</div><div class="value small" id="f-expu">&ndash;</div></div>
+    <div class="stat"><div class="label">Mantissa</div><div class="value small" id="f-man">&ndash;</div></div>
+  </div>
+
+  <h2 class="section-label">Values</h2>
+  <div class="result-summary">
+    <div class="stat"><div class="label">Stored value</div><div class="value small" id="v-stored">&ndash;</div></div>
+    <div class="stat"><div class="label">Hex</div><div class="value small" id="v-hex">&ndash;</div></div>
+    <div class="stat"><div class="label">Class</div><div class="value small" id="v-class">&ndash;</div></div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>Notes</h2>
+  <p>Edit the decimal value or the hex pattern; the other updates instantly.
+  The colored bit string shows the <span class="tag sign">sign</span>,
+  <span class="tag exp">exponent</span> and
+  <span class="tag man">mantissa</span> fields. Note that single precision cannot
+  represent every decimal exactly, so the "stored value" may differ slightly.</p>
+</section>

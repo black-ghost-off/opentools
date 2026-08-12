@@ -1,0 +1,9 @@
+{
+  "slug": "ohms-law",
+  "title": "Ohm's Law Calculator",
+  "summary": "Solve for voltage, current, resistance, or power — enter any two known values.",
+  "category": "Electronics",
+    "icon": "⚡",
+  "body": "body.html",
+  "scripts": ["assets/ohms-law.js"]
+}

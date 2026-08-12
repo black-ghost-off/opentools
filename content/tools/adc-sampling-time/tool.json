@@ -1,0 +1,9 @@
+{
+  "slug": "adc-sampling-time",
+  "title": "ADC Sampling Time Calculator",
+  "summary": "Conversion time and max sample rate from ADC clock, resolution, and sampling cycles.",
+  "category": "Embedded",
+    "icon": "\ud83d\udcc8",
+  "body": "body.html",
+  "scripts": ["assets/adc-sampling-time.js"]
+}

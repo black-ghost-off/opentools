@@ -1,0 +1,64 @@
+<section class="card">
+  <div class="tabs" role="tablist">
+    <button class="tab active" type="button" data-tab="json">JSON</button>
+    <button class="tab" type="button" data-tab="url">URL</button>
+    <button class="tab" type="button" data-tab="html">HTML</button>
+  </div>
+
+  <div class="tab-panel" data-panel="json">
+    <div class="field">
+      <label for="json-input">Input</label>
+      <textarea id="json-input" rows="6" autocomplete="off" spellcheck="false" placeholder='Line one&#10;Line "two"'></textarea>
+    </div>
+    <div class="actions">
+      <button class="btn" type="button" data-escape="json">Escape</button>
+      <button class="btn secondary" type="button" data-unescape="json">Unescape</button>
+    </div>
+    <div class="code-block">
+      <button class="copy-btn" type="button" data-copy="json-output">Copy</button>
+      <pre><code id="json-output"></code></pre>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-panel="url" hidden>
+    <div class="field">
+      <label for="url-input">Input</label>
+      <textarea id="url-input" rows="6" autocomplete="off" spellcheck="false" placeholder="a query=value&amp;other=1"></textarea>
+    </div>
+    <div class="actions">
+      <button class="btn" type="button" data-escape="url">Escape</button>
+      <button class="btn secondary" type="button" data-unescape="url">Unescape</button>
+    </div>
+    <div class="code-block">
+      <button class="copy-btn" type="button" data-copy="url-output">Copy</button>
+      <pre><code id="url-output"></code></pre>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-panel="html" hidden>
+    <div class="field">
+      <label for="html-input">Input</label>
+      <textarea id="html-input" rows="6" autocomplete="off" spellcheck="false" placeholder="<div class=&quot;a&quot;>&amp;copy;</div>"></textarea>
+    </div>
+    <div class="actions">
+      <button class="btn" type="button" data-escape="html">Escape</button>
+      <button class="btn secondary" type="button" data-unescape="html">Unescape</button>
+    </div>
+    <div class="code-block">
+      <button class="copy-btn" type="button" data-copy="html-output">Copy</button>
+      <pre><code id="html-output"></code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p><strong>JSON</strong> uses <code>JSON.stringify</code>/<code>JSON.parse</code>
+  for correct escaping of quotes, backslashes and control characters.
+  <strong>C</strong> escapes/unescapes the common C-string sequences
+  (<code>\n \t \r \\ \" \0</code> and hex/octal-style bytes).
+  <strong>URL</strong> uses <code>encodeURIComponent</code>/<code>decodeURIComponent</code>.
+  <strong>HTML</strong> escapes the five reserved characters
+  (<code>&amp; &lt; &gt; " '</code>) to named entities and decodes named/numeric
+  entities back to text. Everything runs locally in your browser.</p>
+</section>

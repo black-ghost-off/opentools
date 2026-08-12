@@ -1,0 +1,9 @@
+{
+  "slug": "text-diff",
+  "title": "Text Diff Checker",
+  "summary": "Line and word diff with add/remove highlighting.",
+  "category": "Text",
+    "icon": "\ud83d\udd00",
+  "body": "body.html",
+  "scripts": ["assets/text-diff.js"]
+}

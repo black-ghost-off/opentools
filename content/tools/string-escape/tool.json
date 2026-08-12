@@ -1,0 +1,9 @@
+{
+  "slug": "string-escape",
+  "title": "String Escape / Unescape",
+  "summary": "JSON, URL, and HTML entity escaping.",
+  "category": "Text",
+    "icon": "\ud83e\udea2",
+  "body": "body.html",
+  "scripts": ["assets/string-escape.js"]
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "unit-converter",
+  "title": "Ultra Unit Converter",
+  "summary": "Convert length, mass, temperature, data rate, data size, frequency, and pressure — live, both directions.",
+  "category": "Misc Engineering",
+  "icon": "🔁",
+  "body": "body.html",
+  "scripts": ["assets/unit-converter.js"]
+}

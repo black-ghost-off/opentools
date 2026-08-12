@@ -1,0 +1,9 @@
+{
+  "slug": "case-converter",
+  "title": "Case Converter",
+  "summary": "Convert text between camelCase, snake_case, kebab-case, Title Case, and more.",
+  "category": "Text",
+    "icon": "\ud83d\udd24",
+  "body": "body.html",
+  "scripts": ["assets/case-converter.js"]
+}

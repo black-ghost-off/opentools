@@ -1,0 +1,9 @@
+{
+  "slug": "i2c-timing",
+  "title": "I2C Timing Calculator",
+  "summary": "Approximate STM32 I2C TIMINGR fields (PRESC/SCLL/SCLH/SCLDEL/SDADEL) for Standard/Fast/Fast+ modes.",
+  "category": "Embedded",
+    "icon": "\u23f2\ufe0f",
+  "body": "body.html",
+  "scripts": ["assets/i2c-timing.js"]
+}

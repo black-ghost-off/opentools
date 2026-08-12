@@ -1,0 +1,97 @@
+<section class="card">
+  <form id="adc-form" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="clock">ADC clock (Hz)</label>
+        <input id="clock" name="clock" type="text" inputmode="numeric" value="42000000" />
+        <span class="hint">ADCCLK after its own prescaler (e.g. APB2/2).</span>
+      </div>
+
+      <div class="field">
+        <label for="resolution">Resolution</label>
+        <select id="resolution" name="resolution">
+          <option value="12" selected>12-bit (12.5 cycles)</option>
+          <option value="10">10-bit (10.5 cycles)</option>
+          <option value="8">8-bit (8.5 cycles)</option>
+          <option value="6">6-bit (6.5 cycles)</option>
+        </select>
+        <span class="hint">Successive-approximation adds 0.5 cycle.</span>
+      </div>
+
+      <div class="field">
+        <label for="samplingCycles">Sampling time (cycles)</label>
+        <select id="samplingCycles" name="samplingCycles">
+          <option value="3">3</option>
+          <option value="15" selected>15</option>
+          <option value="28">28</option>
+          <option value="56">56</option>
+          <option value="84">84</option>
+          <option value="112">112</option>
+          <option value="144">144</option>
+          <option value="480">480</option>
+        </select>
+        <span class="hint">STM32F4-style selectable sampling times.</span>
+      </div>
+
+      <div class="field">
+        <label for="channels">Channels in scan sequence</label>
+        <input id="channels" name="channels" type="text" inputmode="numeric" value="1" />
+        <span class="hint">Total conversions per scan (regular sequence length).</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit">Calculate</button>
+      <button class="btn secondary" type="reset">Reset</button>
+    </div>
+  </form>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Result</h2>
+    <div class="result-summary">
+      <div class="stat">
+        <div class="label">Conversion time</div>
+        <div class="value" id="out-tconv">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Max sample rate</div>
+        <div class="value" id="out-rate">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Full scan time</div>
+        <div class="value small" id="out-scantime">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Scan rate</div>
+        <div class="value small" id="out-scanrate">&ndash;</div>
+      </div>
+    </div>
+
+    <h2 class="section-label">All sampling times</h2>
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>Sampling cycles</th>
+            <th>Total cycles</th>
+            <th>Conversion time</th>
+            <th>Max sample rate</th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>A successive-approximation ADC conversion takes a fixed number of sampling cycles (to charge
+  the sample-and-hold capacitor) plus a resolution-dependent number of bit-trial cycles:</p>
+  <div class="formula">t<sub>conv</sub> = (sampling cycles + resolution cycles) &divide; f<sub>ADC</sub></div>
+  <p>Resolution cycles are <code>resolution/2 + 0.5</code> (e.g. 12.5 cycles for 12-bit). Longer
+  sampling times improve accuracy on high-impedance sources at the cost of throughput; scanning
+  multiple channels multiplies the per-channel conversion time.</p>
+</section>

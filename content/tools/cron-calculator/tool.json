@@ -1,0 +1,10 @@
+{
+  "slug": "cron-calculator",
+  "title": "CRON Expression Calculator",
+  "summary": "Parse a 5-field cron expression into a plain-English schedule and preview upcoming run times.",
+  "category": "Misc Engineering",
+  "icon": "🕒",
+  "body": "body.html",
+  "scripts": ["assets/cron-calculator.js"],
+  "styles": ["assets/cron-calculator.css"]
+}

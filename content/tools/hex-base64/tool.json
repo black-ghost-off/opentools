@@ -1,0 +1,9 @@
+{
+  "slug": "hex-base64",
+  "title": "Hex / Bytes / Base64",
+  "summary": "Encode and decode between UTF-8 text, hex bytes and Base64.",
+  "category": "Number & Data",
+    "icon": "\ud83d\udd10",
+  "body": "body.html",
+  "scripts": ["assets/hex-base64.js"]
+}

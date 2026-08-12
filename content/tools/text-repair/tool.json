@@ -1,0 +1,9 @@
+{
+  "slug": "text-repair",
+  "title": "Text Repair Studio",
+  "summary": "Auto-fix mojibake / garbled text caused by wrong character encodings.",
+  "category": "Text",
+    "icon": "\ud83e\ude79",
+  "body": "body.html",
+  "scripts": ["assets/text-repair.js"]
+}

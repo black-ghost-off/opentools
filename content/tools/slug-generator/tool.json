@@ -1,0 +1,9 @@
+{
+  "slug": "slug-generator",
+  "title": "Slug Generator",
+  "summary": "URL-safe slugs from arbitrary text, with transliteration.",
+  "category": "Text",
+    "icon": "\ud83d\udd17",
+  "body": "body.html",
+  "scripts": ["assets/slug-generator.js"]
+}

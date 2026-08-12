@@ -1,0 +1,9 @@
+{
+  "slug": "stm32-timer",
+  "title": "STM32 Timer Calculator",
+  "summary": "Find PSC / ARR (and CCR) register values to hit a target timer frequency or period.",
+  "category": "Embedded",
+    "icon": "\u23f1\ufe0f",
+  "body": "body.html",
+  "scripts": ["assets/stm32-timer.js"]
+}

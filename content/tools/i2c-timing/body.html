@@ -1,0 +1,109 @@
+<section class="card">
+  <form id="i2c-form" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="clock">I2C peripheral clock (Hz)</label>
+        <input id="clock" name="clock" type="text" inputmode="numeric" value="48000000" />
+        <span class="hint">I2CCLK feeding the timing unit.</span>
+      </div>
+
+      <div class="field">
+        <label for="mode">Bus mode</label>
+        <select id="mode" name="mode">
+          <option value="standard">Standard mode (100 kHz)</option>
+          <option value="fast" selected>Fast mode (400 kHz)</option>
+          <option value="fastplus">Fast mode Plus (1 MHz)</option>
+        </select>
+        <span class="hint">Loads spec-minimum tLOW/tHIGH and max rise/fall times.</span>
+      </div>
+
+      <div class="field">
+        <label for="tLow">t<sub>LOW</sub> target (ns)</label>
+        <input id="tLow" name="tLow" type="text" inputmode="numeric" value="1300" />
+      </div>
+
+      <div class="field">
+        <label for="tHigh">t<sub>HIGH</sub> target (ns)</label>
+        <input id="tHigh" name="tHigh" type="text" inputmode="numeric" value="600" />
+      </div>
+
+      <div class="field">
+        <label for="tRise">Rise time t<sub>r</sub> (ns)</label>
+        <input id="tRise" name="tRise" type="text" inputmode="numeric" value="300" />
+      </div>
+
+      <div class="field">
+        <label for="tFall">Fall time t<sub>f</sub> (ns)</label>
+        <input id="tFall" name="tFall" type="text" inputmode="numeric" value="300" />
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit">Calculate</button>
+      <button class="btn secondary" type="reset">Reset</button>
+    </div>
+  </form>
+
+  <div id="message" class="msg hidden"></div>
+  <div id="approx-note" class="msg ok hidden">
+    Approximate values based on I2C-bus specification timings. Verify against STM32CubeMX / the
+    reference manual before use in production.
+  </div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">TIMINGR fields</h2>
+    <div class="result-summary">
+      <div class="stat">
+        <div class="label">PRESC</div>
+        <div class="value" id="out-presc">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">SCLL</div>
+        <div class="value" id="out-scll">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">SCLH</div>
+        <div class="value" id="out-sclh">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">SCLDEL</div>
+        <div class="value" id="out-scldel">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">SDADEL</div>
+        <div class="value" id="out-sdadel">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">TIMINGR</div>
+        <div class="value" id="out-timingr">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Actual SCL freq</div>
+        <div class="value small" id="out-freq">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Actual t<sub>LOW</sub> / t<sub>HIGH</sub></div>
+        <div class="value small" id="out-lowhigh">&ndash;</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <button class="copy-btn" type="button" id="copy-code">Copy</button>
+      <pre><code id="code-out"></code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>The STM32 I2C peripheral derives its clock timing from <code>I2CCLK</code> through a
+  prescaler and four count fields packed into <code>TIMINGR</code>:</p>
+  <div class="formula">t<sub>PRESC</sub> = (PRESC + 1) &times; t<sub>I2CCLK</sub></div>
+  <p>The tool picks the smallest <code>PRESC</code> (highest resolution) for which the low and
+  high period counts fit in their 8-bit fields:</p>
+  <div class="formula">SCLL = round(t<sub>LOW</sub> &divide; t<sub>PRESC</sub>) &minus; 1 &nbsp;&nbsp;&nbsp; SCLH = round(t<sub>HIGH</sub> &divide; t<sub>PRESC</sub>) &minus; 1</div>
+  <p><code>SCLDEL</code> and <code>SDADEL</code> add margin for the bus rise/fall times so data is
+  valid before SCL is sampled; they're derived here from the rise/fall time inputs. This is a
+  simplified model of the full ST timing tool (AN4235) &mdash; good for design estimates, but
+  double-check against CubeMX for a specific board and bus load.</p>
+</section>

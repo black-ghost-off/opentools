@@ -1,0 +1,54 @@
+<section class="card">
+  <!-- AUTO REPAIR -->
+  <div class="tab-panel" data-panel="auto">
+    <div class="field">
+      <label for="auto-input">Input text</label>
+      <textarea id="auto-input" rows="4" autocomplete="off" spellcheck="false"
+        placeholder="Paste garbled text, e.g. Ð¿Ñ€Ð¸Ð²Ñ–Ñ‚ or Ã©tÃ©"></textarea>
+    </div>
+    <div class="actions">
+      <button class="btn" type="button" id="run-repair">Run AUTO repair</button>
+      <button class="btn secondary" type="button" id="toggle-all" hidden>Show all candidates</button>
+    </div>
+
+    <div id="auto-message" class="msg hidden"></div>
+
+    <div id="best-wrap" hidden>
+      <h2 class="section-label">Best result</h2>
+      <div class="code-block">
+        <button class="copy-btn" type="button" id="copy-best">Copy</button>
+        <pre><code id="best-out"></code></pre>
+      </div>
+      <p class="hint" id="best-meta"></p>
+    </div>
+
+    <div id="all-wrap" hidden>
+      <h2 class="section-label">All candidates</h2>
+      <div class="table-wrap">
+        <table class="results candidates">
+          <thead>
+            <tr><th>#</th><th>Transform chain</th><th>Score</th><th>Result</th></tr>
+          </thead>
+          <tbody id="candidates-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p><strong>Mojibake</strong> happens when text encoded in one charset is decoded
+  with another &mdash; classic example: UTF-8 bytes read as Windows-1252, turning
+  <code>привіт</code> into <code>Ð¿Ñ€Ð¸Ð²Ñ–Ñ‚</code>.</p>
+  <p><strong>AUTO Repair</strong> reverses these round-trips (Latin-1,
+  Windows-1252/1251/1250/1254, KOI8-R/U, ISO-8859-2/5/15 &rarr; UTF-8), chains
+  them up to a few levels deep, scores each candidate by how few
+  &ldquo;garbage&rdquo; characters remain, and shows the cleanest result. Everything
+  runs locally in your browser.</p>
+  <p class="hint"><strong>Scope:</strong> this fixes <em>single-byte</em> encoding
+  mistakes (the vast majority of mojibake). It does <em>not</em> undo corruption
+  from multi-byte source encodings (Shift-JIS, GBK, Big5), text that was truncated
+  or hand-edited, or characters lost when garbled text was copied through a
+  terminal (invisible control bytes get dropped).</p>
+</section>

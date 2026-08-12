@@ -1,0 +1,165 @@
+<section class="card">
+  <form id="cron-form" novalidate>
+    <div class="form-grid">
+      <div class="field" style="grid-column: 1 / -1">
+        <label for="expr">Cron expression</label>
+        <input id="expr" name="expr" type="text" inputmode="text" autocomplete="off" spellcheck="false" value="*/15 9-17 * * 1-5" />
+        <span class="hint">Standard 5-field cron: <code>minute hour day-of-month month day-of-week</code>.</span>
+      </div>
+
+      <div class="field">
+        <label for="preset">Presets</label>
+        <select id="preset">
+          <option value="">Custom&hellip;</option>
+          <option value="* * * * *">Every minute</option>
+          <option value="*/5 * * * *">Every 5 minutes</option>
+          <option value="*/15 * * * *">Every 15 minutes</option>
+          <option value="0 * * * *">Every hour</option>
+          <option value="0 0 * * *">Every day at midnight</option>
+          <option value="0 9 * * *">Every day at 09:00</option>
+          <option value="0 9 * * 1-5">Weekdays at 09:00</option>
+          <option value="*/15 9-17 * * 1-5" selected>Every 15 min, 9&ndash;17, weekdays</option>
+          <option value="0 0 1 * *">First of every month</option>
+          <option value="0 0 * * 0">Every Sunday at midnight</option>
+          <option value="0 0 1 1 *">Yearly, Jan 1st</option>
+        </select>
+        <span class="hint">Loads a sample expression into the field above.</span>
+      </div>
+
+      <div class="field">
+        <label for="count">Upcoming runs</label>
+        <select id="count">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+        <span class="hint">How many future run times to list.</span>
+      </div>
+    </div>
+  </form>
+
+  <details id="builder-details">
+    <summary class="section-label" style="cursor:pointer">Build it by hand (no cron syntax needed)</summary>
+    <div class="cron-builder">
+      <div class="cfb" data-field="minute" data-min="0" data-max="59">
+        <div class="cfb-head">
+          <span class="cfb-title">Minute</span>
+          <select class="cfb-mode">
+            <option value="every">Every minute</option>
+            <option value="specific">Specific</option>
+            <option value="range">Range</option>
+            <option value="step">Step</option>
+            <option value="first">Only minute 0</option>
+          </select>
+        </div>
+        <div class="cfb-panels"></div>
+      </div>
+
+      <div class="cfb" data-field="hour" data-min="0" data-max="23">
+        <div class="cfb-head">
+          <span class="cfb-title">Hour</span>
+          <select class="cfb-mode">
+            <option value="every">Every hour</option>
+            <option value="specific">Specific</option>
+            <option value="range">Range</option>
+            <option value="step">Step</option>
+            <option value="first">Only hour 0 (midnight)</option>
+          </select>
+        </div>
+        <div class="cfb-panels"></div>
+      </div>
+
+      <div class="cfb" data-field="dom" data-min="1" data-max="31">
+        <div class="cfb-head">
+          <span class="cfb-title">Day</span>
+          <select class="cfb-mode">
+            <option value="every">Every day</option>
+            <option value="specific">Specific</option>
+            <option value="range">Range</option>
+            <option value="step">Step</option>
+            <option value="first">Only day 1 (1st of month)</option>
+          </select>
+        </div>
+        <div class="cfb-panels"></div>
+      </div>
+
+      <div class="cfb" data-field="month" data-min="1" data-max="12" data-names="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec">
+        <div class="cfb-head">
+          <span class="cfb-title">Month</span>
+          <select class="cfb-mode">
+            <option value="every">Every month</option>
+            <option value="specific">Specific</option>
+            <option value="range">Range</option>
+            <option value="step">Step</option>
+            <option value="first">Only January</option>
+          </select>
+        </div>
+        <div class="cfb-panels"></div>
+      </div>
+
+      <div class="cfb" data-field="dow" data-min="0" data-max="6" data-names="Sun,Mon,Tue,Wed,Thu,Fri,Sat">
+        <div class="cfb-head">
+          <span class="cfb-title">Weekday</span>
+          <select class="cfb-mode">
+            <option value="every">Every day</option>
+            <option value="specific">Specific</option>
+            <option value="range">Range</option>
+            <option value="step">Step</option>
+          </select>
+        </div>
+        <div class="cfb-panels"></div>
+      </div>
+    </div>
+    <p class="hint">Changing a control here rewrites the expression field above. Editing the
+    expression field directly re-syncs these controls when the pattern is simple enough to reflect.</p>
+  </details>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Schedule</h2>
+    <p id="description" class="result-summary" style="display:block; padding:0.9rem 1.1rem; font-size:1.05rem;"></p>
+
+    <h2 class="section-label">Field breakdown</h2>
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Raw</th>
+            <th>Resolves to</th>
+          </tr>
+        </thead>
+        <tbody id="breakdown-body"></tbody>
+      </table>
+    </div>
+
+    <h2 class="section-label">Upcoming run times <span id="tz-note"></span></h2>
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date &amp; time</th>
+            <th>In</th>
+          </tr>
+        </thead>
+        <tbody id="runs-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>Cron expressions have five space-separated fields, each accepting a value,
+  a wildcard <code>*</code>, a list <code>1,15,30</code>, a range <code>9-17</code>,
+  or a step <code>*/15</code> / <code>1-31/2</code>:</p>
+  <div class="formula">minute (0-59) &nbsp; hour (0-23) &nbsp; day-of-month (1-31) &nbsp; month (1-12 or JAN-DEC) &nbsp; day-of-week (0-7 or SUN-SAT, 0 and 7 = Sunday)</div>
+  <p>When <strong>both</strong> day-of-month and day-of-week are restricted (not
+  <code>*</code>), cron matches if <em>either</em> one is satisfied &mdash; this
+  tool follows that standard behavior. Run times are computed in your browser's
+  local time zone. Non-standard extensions (<code>L</code>, <code>W</code>,
+  <code>#</code>, <code>?</code>, and 6-field seconds crons) aren't supported.</p>
+</section>

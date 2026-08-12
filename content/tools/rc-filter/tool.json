@@ -1,0 +1,9 @@
+{
+  "slug": "rc-filter",
+  "title": "RC / RL / LC Filter",
+  "summary": "Compute cutoff frequency, time constant, impedance, and Q for passive filters.",
+  "category": "Electronics",
+    "icon": "〰️",
+  "body": "body.html",
+  "scripts": ["assets/rc-filter.js"]
+}

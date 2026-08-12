@@ -1,0 +1,9 @@
+{
+  "slug": "bit-manipulator",
+  "title": "Bit Manipulator",
+  "summary": "Toggle bits visually, apply masks, shifts and rotations, and swap endianness.",
+  "category": "Number & Data",
+    "icon": "\ud83e\uddee",
+  "body": "body.html",
+  "scripts": ["assets/bit-manipulator.js"]
+}

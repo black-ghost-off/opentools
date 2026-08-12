@@ -1,0 +1,9 @@
+{
+  "slug": "555-timer",
+  "title": "555 Timer Calculator",
+  "summary": "Compute frequency, period, and duty cycle for 555 astable and monostable circuits.",
+  "category": "Electronics",
+    "icon": "⏲️",
+  "body": "body.html",
+  "scripts": ["assets/555-timer.js"]
+}

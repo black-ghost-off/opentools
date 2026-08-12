@@ -1,0 +1,9 @@
+{
+  "slug": "pwm-calculator",
+  "title": "PWM Calculator",
+  "summary": "Frequency, duty and resolution (bits) trade-offs for timer-generated PWM from a clock.",
+  "category": "Embedded",
+    "icon": "\ud83d\udcca",
+  "body": "body.html",
+  "scripts": ["assets/pwm-calculator.js"]
+}

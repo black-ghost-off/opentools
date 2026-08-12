@@ -1,0 +1,95 @@
+<section class="card">
+  <div class="tabs" role="tablist">
+    <button class="tab active" type="button" data-tab="encode" role="tab">Encode</button>
+    <button class="tab" type="button" data-tab="decode" role="tab">Decode</button>
+  </div>
+
+  <!-- Encode -->
+  <div class="tab-panel" data-panel="encode">
+    <div class="field">
+      <label for="enc-input">Text (UTF-8)</label>
+      <textarea id="enc-input" rows="4" autocomplete="off" spellcheck="false" placeholder="Hello, world!"></textarea>
+    </div>
+
+    <div class="form-grid" style="margin-top:1rem">
+      <div class="field">
+        <label for="enc-alphabet">Alphabet</label>
+        <select id="enc-alphabet">
+          <option value="standard" selected>Standard (+/)</option>
+          <option value="url">URL-safe (-_)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="enc-padding">Padding</label>
+        <select id="enc-padding">
+          <option value="yes" selected>With = padding</option>
+          <option value="no">No padding</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="enc-wrap">Line wrap</label>
+        <select id="enc-wrap">
+          <option value="0" selected>None</option>
+          <option value="64">64 (MIME)</option>
+          <option value="76">76 (PEM)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field" style="margin-top:1rem">
+      <label for="enc-output">Base64</label>
+      <textarea id="enc-output" rows="4" readonly autocomplete="off" spellcheck="false"></textarea>
+    </div>
+    <div class="actions">
+      <button class="btn secondary" type="button" id="copy-enc">Copy Base64</button>
+    </div>
+  </div>
+
+  <!-- Decode -->
+  <div class="tab-panel" data-panel="decode" hidden>
+    <div class="field">
+      <label for="dec-input">Base64</label>
+      <textarea id="dec-input" rows="4" autocomplete="off" spellcheck="false" placeholder="SGVsbG8sIHdvcmxkIQ=="></textarea>
+      <span class="hint">Standard or URL-safe, with or without padding. Whitespace and line breaks are ignored.</span>
+    </div>
+
+    <div id="dec-message" class="msg hidden"></div>
+
+    <div class="field" style="margin-top:1rem">
+      <label for="dec-output">Text (UTF-8)</label>
+      <textarea id="dec-output" rows="4" readonly autocomplete="off" spellcheck="false"></textarea>
+    </div>
+    <div class="actions">
+      <button class="btn secondary" type="button" id="copy-dec">Copy text</button>
+    </div>
+
+    <div class="field" style="margin-top:1rem">
+      <label for="dec-hex">Bytes (hex)</label>
+      <textarea id="dec-hex" rows="2" readonly autocomplete="off" spellcheck="false"></textarea>
+      <span class="hint">Useful when the decoded bytes aren't valid UTF-8 text.</span>
+    </div>
+  </div>
+
+  <div class="result-summary" style="margin-top:1.25rem">
+    <div class="stat"><div class="label">Byte length</div><div class="value small" id="byte-len">0</div></div>
+    <div class="stat"><div class="label">Base64 length</div><div class="value small" id="b64-len">0</div></div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>About Base64</h2>
+  <p>Base64 turns arbitrary bytes into ASCII text by mapping every 3 bytes onto
+  4 printable characters, so binary data survives transports that only allow
+  text (email, JSON, URLs, data URIs).</p>
+  <ul>
+    <li><strong>Standard alphabet</strong> uses <code>+</code> and <code>/</code>; the
+    <strong>URL-safe</strong> variant swaps them for <code>-</code> and <code>_</code>
+    so the result is safe in URLs and file names.</li>
+    <li><strong>Padding</strong> (<code>=</code>) fills the last group to 4 chars.
+    Many parsers accept unpadded input, so it can be dropped to save bytes.</li>
+    <li><strong>Line wrap</strong> at 64 or 76 columns matches MIME and PEM formats.</li>
+  </ul>
+  <p>Everything runs locally in your browser — nothing is uploaded. For hex and
+  raw byte views alongside Base64, see the
+  <a href="../hex-base64/index.html">Hex / Bytes / Base64</a> tool.</p>
+</section>

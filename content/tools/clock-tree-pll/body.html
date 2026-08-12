@@ -1,0 +1,138 @@
+<section class="card">
+  <form id="pll-form" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="input">Input clock (Hz)</label>
+        <input id="input" name="input" type="text" inputmode="numeric" value="8000000" />
+        <span class="hint">HSE crystal or HSI, e.g. 8 MHz.</span>
+      </div>
+
+      <div class="field">
+        <label for="target">Target SYSCLK (Hz)</label>
+        <input id="target" name="target" type="text" inputmode="numeric" value="168000000" />
+        <span class="hint">Desired system clock after the PLL.</span>
+      </div>
+
+      <div class="field">
+        <label for="vcoInMin">VCO input min (MHz)</label>
+        <input id="vcoInMin" name="vcoInMin" type="text" inputmode="decimal" value="1" />
+        <span class="hint">PLL phase detector input range.</span>
+      </div>
+
+      <div class="field">
+        <label for="vcoInMax">VCO input max (MHz)</label>
+        <input id="vcoInMax" name="vcoInMax" type="text" inputmode="decimal" value="2" />
+        <span class="hint">2 MHz recommended for lowest jitter.</span>
+      </div>
+
+      <div class="field">
+        <label for="vcoOutMin">VCO output min (MHz)</label>
+        <input id="vcoOutMin" name="vcoOutMin" type="text" inputmode="decimal" value="100" />
+      </div>
+
+      <div class="field">
+        <label for="vcoOutMax">VCO output max (MHz)</label>
+        <input id="vcoOutMax" name="vcoOutMax" type="text" inputmode="decimal" value="432" />
+      </div>
+
+      <div class="field">
+        <label for="mMax">Max M</label>
+        <input id="mMax" name="mMax" type="text" inputmode="numeric" value="63" />
+        <span class="hint">M divider range is 2..mMax.</span>
+      </div>
+
+      <div class="field">
+        <label for="nMax">Max N</label>
+        <input id="nMax" name="nMax" type="text" inputmode="numeric" value="432" />
+        <span class="hint">N multiplier range is 50..nMax.</span>
+      </div>
+
+      <div class="field">
+        <label for="maxResults">Max results</label>
+        <input id="maxResults" name="maxResults" type="text" inputmode="numeric" value="20" />
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit">Calculate</button>
+      <button class="btn secondary" type="reset">Reset</button>
+    </div>
+  </form>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Best match</h2>
+    <div class="result-summary">
+      <div class="stat">
+        <div class="label">M</div>
+        <div class="value" id="best-m">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">N</div>
+        <div class="value" id="best-n">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">P</div>
+        <div class="value" id="best-p">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Q (48 MHz)</div>
+        <div class="value" id="best-q">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">SYSCLK</div>
+        <div class="value small" id="best-sysclk">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Error</div>
+        <div class="value small" id="best-error">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">VCO in / out</div>
+        <div class="value small" id="best-vco">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">USB (Q) freq</div>
+        <div class="value small" id="best-usb">&ndash;</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <button class="copy-btn" type="button" id="copy-code">Copy</button>
+      <pre><code id="code-out"></code></pre>
+    </div>
+
+    <h2 class="section-label">All solutions <span id="result-count"></span></h2>
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>M</th>
+            <th>N</th>
+            <th>P</th>
+            <th>Q (48MHz)</th>
+            <th>VCO in</th>
+            <th>VCO out</th>
+            <th>SYSCLK</th>
+            <th>Error (%)</th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>An STM32-style main PLL derives SYSCLK from an input oscillator through two stages:</p>
+  <div class="formula">VCO<sub>in</sub> = f<sub>input</sub> &divide; M &nbsp;&nbsp;&nbsp; VCO<sub>out</sub> = VCO<sub>in</sub> &times; N &nbsp;&nbsp;&nbsp; SYSCLK = VCO<sub>out</sub> &divide; P</div>
+  <p>Both stages have datasheet-defined valid ranges (VCO input is normally kept near 2 MHz for
+  best jitter performance, VCO output must land inside the PLL's operating range). The tool
+  sweeps <code>M</code>, derives the nearest valid <code>N</code> for each candidate <code>P</code>
+  (&isin; {2, 4, 6, 8}), and keeps only combinations that satisfy both range constraints. For each
+  match it also searches <code>Q</code> (2..15) off the same VCO for the closest 48 MHz USB/SDIO
+  clock.</p>
+</section>

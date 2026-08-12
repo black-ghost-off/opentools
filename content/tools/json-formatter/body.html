@@ -1,0 +1,47 @@
+<section class="card">
+  <div class="field">
+    <label for="input">JSON input</label>
+    <textarea id="input" rows="12" autocomplete="off" spellcheck="false" placeholder='{"key": "value"}'></textarea>
+  </div>
+
+  <div class="form-grid" style="margin-top:1rem">
+    <div class="field">
+      <label for="indent">Indent</label>
+      <select id="indent">
+        <option value="2" selected>2 spaces</option>
+        <option value="4">4 spaces</option>
+        <option value="tab">Tab</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn" type="button" id="format">Format</button>
+    <button class="btn secondary" type="button" id="minify">Minify</button>
+    <button class="btn secondary" type="button" id="validate">Validate</button>
+  </div>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <div class="result-summary">
+      <div class="stat"><div class="label">Keys</div><div class="value small" id="stat-keys">&ndash;</div></div>
+      <div class="stat"><div class="label">Type</div><div class="value small" id="stat-type">&ndash;</div></div>
+      <div class="stat"><div class="label">Size</div><div class="value small" id="stat-size">&ndash;</div></div>
+    </div>
+    <h2 class="section-label">Output</h2>
+    <div class="code-block">
+      <button class="copy-btn" type="button" id="copy-out">Copy</button>
+      <pre><code id="output"></code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>Input is parsed with the browser's native <code>JSON.parse</code>. On
+  success, <strong>Format</strong> pretty-prints with the chosen indent and
+  <strong>Minify</strong> strips all insignificant whitespace. On failure, the
+  parser's error position is mapped back to a line/column in your input so you
+  can jump straight to the problem. Everything runs locally in your browser.</p>
+</section>

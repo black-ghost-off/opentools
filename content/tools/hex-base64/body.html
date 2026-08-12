@@ -1,0 +1,29 @@
+<section class="card">
+  <div class="field">
+    <label for="text">Text (UTF-8)</label>
+    <textarea id="text" data-fmt="text" rows="3" autocomplete="off" spellcheck="false" placeholder="Hello, world!"></textarea>
+  </div>
+  <div class="field" style="margin-top:1rem">
+    <label for="hex">Hex</label>
+    <textarea id="hex" data-fmt="hex" rows="3" autocomplete="off" spellcheck="false" placeholder="48 65 6C 6C 6F"></textarea>
+    <span class="hint">Whitespace and <code>0x</code> ignored.</span>
+  </div>
+  <div class="field" style="margin-top:1rem">
+    <label for="b64">Base64</label>
+    <textarea id="b64" data-fmt="b64" rows="3" autocomplete="off" spellcheck="false" placeholder="SGVsbG8="></textarea>
+    <span class="hint">Standard or URL-safe accepted.</span>
+  </div>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div class="result-summary" style="margin-top:1.25rem">
+    <div class="stat"><div class="label">Byte length</div><div class="value small" id="len">0</div></div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>Notes</h2>
+  <p>Type in any box; the others re-encode live from the underlying bytes. Text is
+  interpreted as UTF-8. Base64 accepts both the standard (<code>+/</code>) and
+  URL-safe (<code>-_</code>) alphabets, with or without padding.</p>
+</section>

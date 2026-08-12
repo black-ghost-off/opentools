@@ -1,0 +1,9 @@
+{
+  "slug": "ascii-table",
+  "title": "ASCII / Unicode Table",
+  "summary": "Searchable ASCII table with dec/hex/oct/binary, escapes and Unicode code point lookup.",
+  "category": "Number & Data",
+    "icon": "\ud83d\udd24",
+  "body": "body.html",
+  "scripts": ["assets/ascii-table.js"]
+}

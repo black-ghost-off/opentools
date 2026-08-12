@@ -1,0 +1,9 @@
+{
+  "slug": "regex-tester",
+  "title": "Regex Tester",
+  "summary": "Live match highlighting, capture groups, and replace preview.",
+  "category": "Text",
+    "icon": "\ud83e\uddea",
+  "body": "body.html",
+  "scripts": ["assets/regex-tester.js"]
+}

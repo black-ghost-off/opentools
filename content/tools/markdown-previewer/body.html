@@ -1,0 +1,23 @@
+<section class="card">
+  <div class="split-grid">
+    <div class="field">
+      <label for="input">Markdown</label>
+      <textarea id="input" rows="14" autocomplete="off" spellcheck="false"></textarea>
+    </div>
+    <div class="field">
+      <label>Preview</label>
+      <div class="output-panel" id="preview"></div>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>A small local Markdown parser supports headings, bold/italic, inline
+  code, fenced code blocks, blockquotes, links, horizontal rules, and ordered
+  &amp; unordered lists. Raw text is HTML-escaped <em>before</em> markdown
+  conversion, so any stray <code>&lt;script&gt;</code> tags in your input are
+  shown as literal text rather than executed &mdash; nothing runs except your
+  browser rendering plain HTML/CSS. Everything happens locally; nothing is
+  uploaded.</p>
+</section>

@@ -1,0 +1,53 @@
+<section class="card">
+  <div class="field">
+    <label for="input">Input lines</label>
+    <textarea id="input" rows="10" autocomplete="off" spellcheck="false" placeholder="One item per line"></textarea>
+  </div>
+
+  <div class="form-grid" style="margin-top:1rem">
+    <div class="field">
+      <label for="sort-mode">Sort</label>
+      <select id="sort-mode">
+        <option value="none" selected>No sorting</option>
+        <option value="asc">A &rarr; Z</option>
+        <option value="desc">Z &rarr; A</option>
+        <option value="len-asc">Shortest first</option>
+        <option value="len-desc">Longest first</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="checkbox-grid">
+    <label class="checkbox-row"><input type="checkbox" id="case-insensitive" /> Case-insensitive sort</label>
+    <label class="checkbox-row"><input type="checkbox" id="trim" checked /> Trim whitespace</label>
+    <label class="checkbox-row"><input type="checkbox" id="remove-empty" checked /> Remove empty lines</label>
+    <label class="checkbox-row"><input type="checkbox" id="dedupe" /> Remove duplicates</label>
+    <label class="checkbox-row"><input type="checkbox" id="dedupe-ci" /> Duplicates: case-insensitive</label>
+    <label class="checkbox-row"><input type="checkbox" id="reverse" /> Reverse order</label>
+  </div>
+
+  <div class="actions">
+    <button class="btn" type="button" id="process">Process</button>
+    <button class="btn secondary" type="button" id="shuffle">Shuffle</button>
+  </div>
+
+  <div id="results" hidden>
+    <div class="result-summary">
+      <div class="stat"><div class="label">Input lines</div><div class="value small" id="stat-in">0</div></div>
+      <div class="stat"><div class="label">Output lines</div><div class="value small" id="stat-out">0</div></div>
+      <div class="stat"><div class="label">Removed</div><div class="value small" id="stat-removed">0</div></div>
+    </div>
+    <h2 class="section-label">Output</h2>
+    <div class="code-block">
+      <button class="copy-btn" type="button" id="copy-out">Copy</button>
+      <pre><code id="output"></code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>Text is split into lines, then each enabled operation is applied in order:
+  trim &rarr; remove empty &rarr; dedupe &rarr; sort/shuffle &rarr; reverse.
+  Everything runs locally in your browser.</p>
+</section>

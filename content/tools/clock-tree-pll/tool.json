@@ -1,0 +1,9 @@
+{
+  "slug": "clock-tree-pll",
+  "title": "Clock Tree / PLL Calculator",
+  "summary": "Solve PLL M/N/P/Q dividers for a target SYSCLK (and 48 MHz USB) from an input oscillator.",
+  "category": "Embedded",
+    "icon": "\ud83c\udf33",
+  "body": "body.html",
+  "scripts": ["assets/clock-tree-pll.js"]
+}

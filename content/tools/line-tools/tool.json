@@ -1,0 +1,9 @@
+{
+  "slug": "line-tools",
+  "title": "Line Sort / Dedupe Tool",
+  "summary": "Sort, unique, shuffle, reverse lines in a text block.",
+  "category": "Text",
+    "icon": "\ud83d\udccb",
+  "body": "body.html",
+  "scripts": ["assets/line-tools.js"]
+}

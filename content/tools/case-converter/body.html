@@ -1,0 +1,30 @@
+<section class="card">
+  <div class="field">
+    <label for="input">Input text</label>
+    <textarea id="input" rows="4" autocomplete="off" spellcheck="false"
+      placeholder="Type or paste text, e.g. Hello World_example-text"></textarea>
+    <span class="hint">Word boundaries are detected from spaces, <code>-</code>, <code>_</code>, <code>.</code> and camel/Pascal humps.</span>
+  </div>
+
+  <div class="kv-list" id="results">
+    <div class="kv-row"><div class="kv-label">camelCase</div><div class="kv-value" id="out-camel"></div><button class="copy-btn" type="button" data-target="out-camel">Copy</button></div>
+    <div class="kv-row"><div class="kv-label">PascalCase</div><div class="kv-value" id="out-pascal"></div><button class="copy-btn" type="button" data-target="out-pascal">Copy</button></div>
+    <div class="kv-row"><div class="kv-label">snake_case</div><div class="kv-value" id="out-snake"></div><button class="copy-btn" type="button" data-target="out-snake">Copy</button></div>
+    <div class="kv-row"><div class="kv-label">CONSTANT_CASE</div><div class="kv-value" id="out-constant"></div><button class="copy-btn" type="button" data-target="out-constant">Copy</button></div>
+    <div class="kv-row"><div class="kv-label">kebab-case</div><div class="kv-value" id="out-kebab"></div><button class="copy-btn" type="button" data-target="out-kebab">Copy</button></div>
+    <div class="kv-row"><div class="kv-label">dot.case</div><div class="kv-value" id="out-dot"></div><button class="copy-btn" type="button" data-target="out-dot">Copy</button></div>
+    <div class="kv-row"><div class="kv-label">Title Case</div><div class="kv-value" id="out-title"></div><button class="copy-btn" type="button" data-target="out-title">Copy</button></div>
+    <div class="kv-row"><div class="kv-label">Sentence case</div><div class="kv-value" id="out-sentence"></div><button class="copy-btn" type="button" data-target="out-sentence">Copy</button></div>
+    <div class="kv-row"><div class="kv-label">lower case</div><div class="kv-value" id="out-lower"></div><button class="copy-btn" type="button" data-target="out-lower">Copy</button></div>
+    <div class="kv-row"><div class="kv-label">UPPER CASE</div><div class="kv-value" id="out-upper"></div><button class="copy-btn" type="button" data-target="out-upper">Copy</button></div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>The input is split into individual words by detecting separators
+  (<code>space</code>, <code>-</code>, <code>_</code>, <code>.</code>) as well as
+  camelCase/PascalCase humps and letter&rarr;digit boundaries. The word list is
+  then rejoined using each target convention. Everything runs locally in your
+  browser &mdash; nothing is uploaded.</p>
+</section>

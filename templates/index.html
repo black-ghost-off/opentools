@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <h1>{{ config.title }}</h1>
+    <p class="tagline">{{ config.tagline }}</p>
+  </div>
+</section>
+
+<section class="container tools-section">
+  {% set categories = tools | map(attribute='category') | unique | list %}
+  {% for category in categories %}
+  <h2 class="category-title">{{ category }}</h2>
+  <div class="tool-grid">
+    {% for tool in tools if tool.category == category %}
+    <a class="tool-card" href="{{ tool.url }}">
+      <span class="tool-icon">{{ tool.icon }}</span>
+      <span class="tool-body">
+        <span class="tool-title">{{ tool.title }}</span>
+        <span class="tool-summary">{{ tool.summary }}</span>
+      </span>
+    </a>
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+  {% if not tools %}
+  <p class="empty-state">No tools yet. Add one under <code>content/tools/</code>.</p>
+  {% endif %}
+</section>
+{% endblock %}

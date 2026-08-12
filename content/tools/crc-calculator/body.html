@@ -1,0 +1,129 @@
+<section class="card">
+  <form id="crc-form" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="preset">Preset</label>
+        <select id="preset" name="preset">
+          <option value="crc32">CRC-32/ISO-HDLC</option>
+          <option value="crc32c">CRC-32C (Castagnoli)</option>
+          <option value="crc16ccitt">CRC-16/CCITT-FALSE</option>
+          <option value="crc16modbus">CRC-16/MODBUS</option>
+          <option value="crc16xmodem">CRC-16/XMODEM</option>
+          <option value="crc8">CRC-8</option>
+          <option value="crc8maxim">CRC-8/MAXIM-DOW (1-Wire)</option>
+          <option value="custom">Custom</option>
+        </select>
+        <span class="hint">Loads width/poly/init/refin/refout/xorout.</span>
+      </div>
+
+      <div class="field">
+        <label for="inputType">Input type</label>
+        <select id="inputType" name="inputType">
+          <option value="text" selected>Text (UTF-8)</option>
+          <option value="hex">Hex bytes</option>
+        </select>
+      </div>
+
+      <div class="field" style="grid-column: 1 / -1;">
+        <label for="input">Input</label>
+        <textarea id="input" name="input" rows="3">123456789</textarea>
+        <span class="hint">Hex mode accepts "01 A2 FF" / "01a2ff" / "0x01,0xA2".</span>
+      </div>
+
+      <div class="field">
+        <label for="width">Width (bits)</label>
+        <select id="width" name="width">
+          <option value="8">8</option>
+          <option value="16">16</option>
+          <option value="32" selected>32</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="poly">Polynomial (hex)</label>
+        <input id="poly" name="poly" type="text" value="04C11DB7" />
+      </div>
+
+      <div class="field">
+        <label for="init">Init value (hex)</label>
+        <input id="init" name="init" type="text" value="FFFFFFFF" />
+      </div>
+
+      <div class="field">
+        <label for="xorout">XOR out (hex)</label>
+        <input id="xorout" name="xorout" type="text" value="FFFFFFFF" />
+      </div>
+
+      <div class="field">
+        <label for="refin">
+          <input id="refin" name="refin" type="checkbox" checked style="width:auto; margin-right:0.4rem;" />
+          Reflect input (RefIn)
+        </label>
+      </div>
+
+      <div class="field">
+        <label for="refout">
+          <input id="refout" name="refout" type="checkbox" checked style="width:auto; margin-right:0.4rem;" />
+          Reflect output (RefOut)
+        </label>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit">Calculate</button>
+      <button class="btn secondary" type="reset">Reset</button>
+    </div>
+  </form>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Checksum</h2>
+    <div class="result-summary">
+      <div class="stat">
+        <div class="label">CRC (hex)</div>
+        <div class="value" id="out-hex">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">CRC (decimal)</div>
+        <div class="value small" id="out-dec">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">CRC (binary)</div>
+        <div class="value small" id="out-bin">&ndash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Bytes processed</div>
+        <div class="value small" id="out-len">&ndash;</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <button class="copy-btn" type="button" id="copy-code">Copy</button>
+      <pre><code id="code-out"></code></pre>
+    </div>
+
+    <h2 class="section-label">Reference implementation</h2>
+    <div class="tabs" role="tablist">
+      <button type="button" class="tab active" data-lang="python" role="tab">Python</button>
+      <button type="button" class="tab" data-lang="c" role="tab">C</button>
+      <button type="button" class="tab" data-lang="rust" role="tab">Rust</button>
+    </div>
+    <div class="code-block">
+      <button class="copy-btn" type="button" id="copy-lang-code">Copy</button>
+      <pre><code id="lang-code-out"></code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p>This is a generic bit-by-bit CRC engine (the same model used by the
+  <a href="https://reveng.sourceforge.io/crc-catalogue/" rel="noopener">Rocksoft/CRC RevEng
+  catalogue</a>): each input byte is XORed into the top of the shift register, optionally
+  bit-reflected first, then shifted through <code>width</code> rounds, XORing in the polynomial
+  whenever the top bit is set. The result is optionally bit-reflected and XORed with
+  <code>xorout</code>. Presets are verified against the standard "123456789" check values. The
+  Python / C / Rust snippets above implement the exact same algorithm for the current parameters
+  and input, so you can copy-paste a working checksum function directly into firmware or scripts.</p>
+</section>

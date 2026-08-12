@@ -1,0 +1,16 @@
+# Build output
+/dist/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Editor / OS
+.DS_Store
+.idea/
+*.swp
+
+ROADMAP.md

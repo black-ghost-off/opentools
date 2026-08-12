@@ -1,0 +1,61 @@
+<section class="card">
+  <form id="timer555-form" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="mode555">Mode</label>
+        <select id="mode555">
+          <option value="astable">Astable (oscillator)</option>
+          <option value="monostable">Monostable (one-shot)</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="astable-fields">
+      <div class="form-grid" style="margin-top:1rem">
+        <div class="field">
+          <label for="ra">Ra (Ω)</label>
+          <input id="ra" type="text" inputmode="decimal" value="10000" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="rb">Rb (Ω)</label>
+          <input id="rb" type="text" inputmode="decimal" value="10000" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="c555">C (F)</label>
+          <input id="c555" type="text" inputmode="decimal" value="100n" autocomplete="off" />
+          <span class="hint">Supports n, u, p suffixes.</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="monostable-fields" hidden>
+      <div class="form-grid" style="margin-top:1rem">
+        <div class="field">
+          <label for="rm">R (Ω)</label>
+          <input id="rm" type="text" inputmode="decimal" value="100000" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="cm">C (F)</label>
+          <input id="cm" type="text" inputmode="decimal" value="10u" autocomplete="off" />
+          <span class="hint">Supports n, u, p suffixes.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit">Calculate</button>
+      <button class="btn secondary" type="reset">Reset</button>
+    </div>
+  </form>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">Results</h2>
+    <div class="result-summary" id="out-summary">
+    </div>
+    <div class="code-block">
+      <pre><code id="out-formula"></code></pre>
+    </div>
+  </div>
+</section>

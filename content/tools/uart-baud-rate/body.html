@@ -1,0 +1,78 @@
+<section class="card">
+  <form id="uart-form" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="clock">Peripheral clock (Hz)</label>
+        <input id="clock" name="clock" type="text" inputmode="numeric" value="16000000" />
+        <span class="hint">USARTx clock (STM32) or F_CPU (AVR).</span>
+      </div>
+
+      <div class="field">
+        <label for="baud">Target baud rate</label>
+        <input id="baud" name="baud" type="text" inputmode="numeric" value="115200" />
+        <span class="hint">e.g. 9600, 115200, 921600.</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit">Calculate</button>
+      <button class="btn secondary" type="reset">Reset</button>
+    </div>
+  </form>
+
+  <div id="message" class="msg hidden"></div>
+
+  <div id="results" hidden>
+    <h2 class="section-label">STM32 USART (BRR)</h2>
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>Mode</th>
+            <th>Mantissa</th>
+            <th>Fraction</th>
+            <th>BRR (hex)</th>
+            <th>Actual baud</th>
+            <th>Error (%)</th>
+          </tr>
+        </thead>
+        <tbody id="stm32-body"></tbody>
+      </table>
+    </div>
+
+    <h2 class="section-label">AVR USART (UBRRn)</h2>
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>Mode</th>
+            <th>UBRR</th>
+            <th>Actual baud</th>
+            <th>Error (%)</th>
+          </tr>
+        </thead>
+        <tbody id="avr-body"></tbody>
+      </table>
+    </div>
+
+    <div class="code-block">
+      <button class="copy-btn" type="button" id="copy-code">Copy</button>
+      <pre><code id="code-out"></code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <p><strong>STM32</strong> USART baud rate is derived from the peripheral clock through the
+  16-bit <code>BRR</code> register, split into a mantissa and a fraction:</p>
+  <div class="formula">baud = f<sub>CK</sub> &divide; (8 &times; (2 &minus; OVER8) &times; USARTDIV)</div>
+  <p>With over-sampling by 16 the fraction is 4 bits (<code>/16</code> steps); with over-sampling
+  by 8 the fraction is 3 bits (<code>/8</code> steps, stored left-shifted by one bit in the
+  register). Over-sampling by 8 allows higher baud rates for a given clock at the cost of noise
+  immunity.</p>
+  <p><strong>AVR</strong> USARTs use a simpler 12-bit <code>UBRRn</code> divider:</p>
+  <div class="formula">UBRR = f<sub>OSC</sub> &divide; (8 or 16 &times; baud) &minus; 1</div>
+  <p>Setting <code>U2X = 1</code> (double speed) halves the divisor, trading accuracy for range
+  the same way STM32's over-sampling-by-8 does.</p>
+</section>
